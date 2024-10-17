@@ -1,10 +1,6 @@
 import { useGameActorRef, useGameSelector } from "@/lib/state-machines/game";
 import { styled } from "@/styled-system/jsx";
-
-interface Feedback {
-	letter: string;
-	status?: string;
-}
+import type { Feedback } from "@/types/feedback";
 
 type WordsProps = {
 	feedback: Feedback[][];
@@ -14,7 +10,7 @@ export function Words({ feedback }: WordsProps) {
 	const currentGuess = useGameSelector((state) => state.context.currentGuess);
 	const actorRef = useGameActorRef();
 	const currentRow = feedback.length;
-
+  
 	const renderCell = (i: number, j: number) => {
 		let feedbackLetter: Feedback | null = null;
 
@@ -53,7 +49,9 @@ export function Words({ feedback }: WordsProps) {
 				flexDirection: "row",
 			}}
 		>
-			{Array.from({ length: 5 }).map((_, j) => renderCell(i, j))}
+			{Array.from({ length: 5 }).map((_, j) =>
+				renderCell(i, j),
+			)}
 		</div>
 	);
 

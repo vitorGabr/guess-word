@@ -1,4 +1,5 @@
 import { saveGameForToday } from "@/lib/utils";
+import type { Feedback } from "@/types/feedback";
 import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
@@ -10,10 +11,7 @@ type Event =
 	| { type: "SUBMIT_GUESS" };
 
 type Context = {
-	feedback: {
-		letter: string;
-		status: "correct" | "present" | "absent";
-	}[][];
+	feedback: Feedback[][];
 	currentCol: number;
 	targetWord: string;
 	maxAttempts: number;
@@ -117,7 +115,7 @@ export const machine = setup({
 						const { currentGuess, targetWord } = context;
 
 						const splitWord = targetWord.split("");
-						const feedback: Context["feedback"][number] = [];
+						const feedback: Feedback[] = [];
 
 						const letterCountMap = splitWord.reduce(
 							(acc, letter) => {
@@ -148,13 +146,11 @@ export const machine = setup({
 							}
 						});
 
-						const response = {
+						return {
 							feedback: [...context.feedback, feedback],
 							currentCol: 0,
 							currentGuess: [],
 						};
-
-						return response;
 					}),
 				},
 			],
