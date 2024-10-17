@@ -10,11 +10,9 @@ export default function Home() {
 	const [isClient, setIsClient] = useState(false);
 
 	useKeyboardListener();
-
 	useEffect(() => {
 		setIsClient(true);
 	}, []);
-
 	if (!isClient) return null;
 
 	return (

@@ -8,9 +8,9 @@ datasource db {
 }
 
 model games {
-  id          Int      @id @default(autoincrement())
-  word        String?  @db.VarChar(5)
-  targetDate DateTime @db.Date @map("target_date")
-  createdAt  DateTime @default(now()) @db.Timestamp(6) @map("created_at")
-  updatedAt  DateTime @default(now()) @db.Timestamp(6) @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  word       String?  @db.VarChar(5)
+  targetDate String   @map("target_date")
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp(6)
 }

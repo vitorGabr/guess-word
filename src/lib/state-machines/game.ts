@@ -14,9 +14,8 @@ type Context = {
 	feedback: Feedback[][];
 	currentCol: number;
 	targetWord: string;
-	maxAttempts: number;
 	currentGuess: string[];
-	isInvalidWord?: boolean;
+	invalidWord?: boolean;
 };
 
 export const machine = setup({
@@ -30,10 +29,9 @@ export const machine = setup({
 		return {
 			feedback: [],
 			currentCol: 0,
-			isInvalidWord: false,
 			targetWord: input as string,
-			maxAttempts: 6,
 			currentGuess: [],
+			invalidWord: false,
 		};
 	},
 	id: "wordle",
@@ -97,17 +95,20 @@ export const machine = setup({
 				{
 					target: "lost",
 					guard: ({ context }) => {
-						const { maxAttempts, feedback } = context;
+						const { feedback } = context;
 						const currentRow = feedback.length + 1;
-						return currentRow >= maxAttempts;
+						return currentRow >= 6;
 					},
 				},
 				{
-					target: "invalidWord",
+					target: "playing",
 					guard: ({ context }) => {
 						const { currentGuess } = context;
 						return !dict.includes(currentGuess.join(""));
 					},
+					actions: assign({
+						invalidWord: true,
+					})
 				},
 				{
 					target: "playing",
@@ -146,24 +147,43 @@ export const machine = setup({
 							}
 						});
 
-						return {
+						const response = {
 							feedback: [...context.feedback, feedback],
 							currentCol: 0,
 							currentGuess: [],
 						};
+
+						saveGameForToday({
+							context: {
+								...context,
+								...response,
+							},
+						});
+
+						return response;
 					}),
 				},
 			],
 		},
-		invalidWord: {
-			entry: assign({ isInvalidWord: true }),
-			always: { target: "playing" },
-		},
 		won: {
 			type: "final",
+			entry: ({ context }) => {
+				saveGameForToday({
+					context: context,
+					value: "won",
+					status: "done",
+				});
+			},
 		},
 		lost: {
 			type: "final",
+			entry: ({ context }) => {
+				saveGameForToday({
+					context: context,
+					value: "lost",
+					status: "done",
+				});
+			},
 		},
 	},
 });
@@ -172,10 +192,4 @@ export const {
 	Provider: GameProvider,
 	useActorRef: useGameActorRef,
 	useSelector: useGameSelector,
-} = createActorContext(machine, {
-	inspect(inspectionEvent) {
-		if (inspectionEvent.type === "@xstate.snapshot") {
-			saveGameForToday(inspectionEvent.snapshot);
-		}
-	},
-});
+} = createActorContext(machine);
