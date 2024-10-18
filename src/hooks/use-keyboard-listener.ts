@@ -6,31 +6,37 @@ export const useKeyboardListener = () => {
 
 	const handleKeyPress = useCallback(
 		(key: string) => {
-			if (key === "Enter") {
-				someActorRef.send({ type: "SUBMIT_GUESS" });
-			}
-			if (key === "Backspace") {
-				someActorRef.send({ type: "BACKSPACE" });
-			}
-			if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
-				someActorRef.send({ type: "INPUT_LETTER", letter: key.toLowerCase() });
-			}
-			if (key === "ArrowRight") {
-				someActorRef.send({ type: "ARROW_CHANGE",direction: "right" });
-			}
-			if (key === "ArrowLeft") {
-				someActorRef.send({ type: "ARROW_CHANGE",direction: "left" });
+			switch (key) {
+				case "Enter":
+					someActorRef.send({ type: "SUBMIT_GUESS" });
+					break;
+				case "Backspace":
+					someActorRef.send({ type: "BACKSPACE" });
+					break;
+				case "ArrowRight":
+					someActorRef.send({ type: "ARROW_CHANGE", direction: "right" });
+					break;
+				case "ArrowLeft":
+					someActorRef.send({ type: "ARROW_CHANGE", direction: "left" });
+					break;
+				default:
+					if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
+						someActorRef.send({
+							type: "INPUT_LETTER",
+							letter: key.toLowerCase(),
+						});
+					}
+					break;
 			}
 		},
 		[someActorRef],
 	);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const keyDownListener = (e: KeyboardEvent) => handleKeyPress(e.key);
 		document.addEventListener("keydown", keyDownListener);
 		return () => {
 			document.removeEventListener("keydown", keyDownListener);
 		};
-	}, []);
+	}, [handleKeyPress]);
 };

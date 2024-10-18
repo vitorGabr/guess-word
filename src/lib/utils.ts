@@ -1,16 +1,14 @@
 "use client";
 
 import { type GameSchema, gameSchema } from "./schema";
+import dayjs from "dayjs";
 
 export const loadGameForToday = () => {
 	try {
-		const today = new Date().toISOString().split("T")[0];
+		const today = dayjs().format("YYYY-MM-DD");
 		const savedGame = JSON.parse(localStorage.getItem("data") || "{}");
-		const parsedGame = gameSchema.safeParse(savedGame);
-		if (parsedGame.success) {
-			return parsedGame.data[today];
-		}
-		return null;
+		const parsedGame = gameSchema.parse(savedGame);
+		return parsedGame[today];
 	} catch (error) {
 		return null;
 	}
@@ -18,7 +16,7 @@ export const loadGameForToday = () => {
 
 export function saveGameForToday(data: GameSchema) {
 	try {
-		const today = new Date().toISOString().split("T")[0];
+		const today = dayjs().format("YYYY-MM-DD");
 		const savedGame = JSON.parse(localStorage.getItem("data") || "{}");
 		localStorage.setItem(
 			"data",
