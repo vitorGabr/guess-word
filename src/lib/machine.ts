@@ -4,19 +4,15 @@ import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
 import type { GameFeedback, GameSchema } from "./schema";
 
-type Event =
-	| { type: "INPUT_LETTER"; letter: string }
-	| { type: "BACKSPACE" }
-	| { type: "EDIT_LETTER_POSITION"; col: number }
-	| { type: "SUBMIT_GUESS" }
-	| { type: "ARROW_CHANGE"; direction: "left" | "right" };
-
-type Context = GameSchema["context"];
-
 export const machine = setup({
 	types: {
-		context: {} as Context,
-		events: {} as Event,
+		context: {} as GameSchema["context"],
+		events: {} as
+			| { type: "INPUT_LETTER"; letter: string }
+			| { type: "BACKSPACE" }
+			| { type: "EDIT_LETTER_POSITION"; col: number }
+			| { type: "SUBMIT_GUESS" }
+			| { type: "ARROW_CHANGE"; direction: "left" | "right" },
 	},
 	guards: {},
 }).createMachine({
