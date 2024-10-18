@@ -6,23 +6,29 @@ export const key = defineRecipe({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		width: "12",
-		height: "12",
-		border: "2px solid",
-		rounded: "xl",
+		cursor: "pointer",
+		md: {
+			minW: "10",
+			minH: "10",
+			fontSize: "lg",
+			'&[data-letter="enter"]': {
+				fontSize: "md",
+				px: "1",
+			},
+		},
+		mdDown: {
+			minW: "7",
+			h: "10",
+			fontSize: "sm",
+			'&[data-letter="enter"]': {
+				fontSize: "xs",
+				px: "1",
+			},
+		},
+		rounded: "sm",
 		color: "text",
-		fontSize: "2xl",
 		fontWeight: "bold",
-		'&[data-feedback="correct"]': {
-			borderColor: "feedback.correct",
-		},
-		'&[data-feedback="absent"]': {
-			bg: "feedback.absent",
-			borderColor: "feedback.absent",
-		},
-		'&[data-feedback="present"]': {
-			borderColor: "feedback.present",
-			borderStyle: "dashed",
-		},
+		textTransform: "uppercase",
+		bg: "feedback.absent",
 	},
 });

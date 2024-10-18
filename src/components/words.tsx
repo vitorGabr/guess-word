@@ -14,7 +14,6 @@ export function Words({ feedback }: WordsProps) {
 	const actorRef = useGameActorRef();
 	const currentRow = feedback.length;
 
-
 	const renderCell = (i: number, j: number) => {
 		let feedbackLetter: GameFeedback | null = null;
 		if (feedback[i]?.[j]) feedbackLetter = feedback[i][j];
@@ -36,7 +35,7 @@ export function Words({ feedback }: WordsProps) {
 			</styled.div>
 		);
 	};
-
+	
 	const renderRow = (i: number) => (
 		<Flex key={i} gap="2">
 			{Array.from({ length: 5 }).map((_, j) => renderCell(i, j))}
@@ -44,7 +43,7 @@ export function Words({ feedback }: WordsProps) {
 	);
 
 	return (
-		<Stack gap="2" mx="auto">
+		<Stack gap="2" mx="auto" flex={1}>
 			{Array.from({ length: 6 }).map((_, i) => renderRow(i))}
 		</Stack>
 	);

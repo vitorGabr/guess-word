@@ -1,7 +1,9 @@
 import { useGameActorRef } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
-import { Center, Flex, Stack, styled } from "@/styled-system/jsx";
+import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { useMemo } from "react";
+import { key } from "@/styled-system/recipes";
+import { cx } from "@/styled-system/css";
 
 type Props = {
 	feedback: GameFeedback[][];
@@ -10,8 +12,10 @@ type Props = {
 const KEYS = [
 	["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
 	["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-	["enter", "z", "x", "c", "v", "b", "n", "m", "backspace"],
+	["backspace", "z", "x", "c", "v", "b", "n", "m", "enter"],
 ] as const;
+
+type KeyItem = (typeof KEYS)[number][number];
 
 export function Keyboard({ feedback }: Props) {
 	const actor = useGameActorRef();
@@ -20,7 +24,7 @@ export function Keyboard({ feedback }: Props) {
 		return Array.from(new Set(allLetters));
 	}, [feedback]);
 
-	function onClick(letter: (typeof KEYS)[number][number]) {
+	function onClick(letter: KeyItem) {
 		if (letter === "enter") {
 			actor.send({ type: "SUBMIT_GUESS" });
 			return;
@@ -32,25 +36,47 @@ export function Keyboard({ feedback }: Props) {
 		actor.send({ type: "INPUT_LETTER", letter });
 	}
 
-	return (
-		<Stack mx="auto" alignItems={"center"} gap="2">
+	function showKeyLetter(letter: KeyItem) {
+		if (letter === "enter") return "Enviar";
+		if (letter === "backspace") return "⌫";
+		return letter;
+	}
+    
+    return (
+		<Stack
+			mx="auto"
+			alignItems={"center"}
+			gap="2"
+			mb="4"
+			mdDown={{
+				w: "full",
+				px: "2",
+			}}
+		>
 			{KEYS.map((row, i) => (
-				<Flex key={i} gap="2">
-					{row.map((key) => (
-						<styled.button
-							key={key}
-							minW={8}
-							minH={8}
-							bg="gray.200"
-							aria-label={`Tecla ${key}`}
-							onClick={() => onClick(key)}
-                            type="button"
+				<Flex
+					key={i}
+					gap="2"
+					w={"full"}
+					alignItems={"center"}
+					justifyContent={"center"}
+				>
+					{row.map((k) => (
+						<KeyItem
+							className={cx(key())}
+							key={k}
+							aria-label={`Tecla ${k}`}
+							onClick={() => onClick(k)}
+							type="button"
+                            data-letter={k}
 						>
-							{key}
-						</styled.button>
+							{showKeyLetter(k)}
+						</KeyItem>
 					))}
 				</Flex>
 			))}
 		</Stack>
 	);
 }
+
+const KeyItem = styled("button", key);

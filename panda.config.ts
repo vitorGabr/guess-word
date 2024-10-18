@@ -1,3 +1,4 @@
+import { key } from "@/theme/recipes/key";
 import { word } from "@/theme/recipes/word";
 import { defineColorTokens } from "@/theme/tokens/colors";
 import { defineConfig } from "@pandacss/dev";
@@ -17,7 +18,8 @@ export default defineConfig({
 			}
 		},
 		recipes: {
-			word: word
+			word,
+			key
 		}
 	},
 	outdir: "styled-system",

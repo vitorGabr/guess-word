@@ -5,8 +5,9 @@ import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
 import { useGameSelector } from "@/lib/machine";
-import { Stack } from "@/styled-system/jsx";
+import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { useEffect, useState } from "react";
+import { Info } from "lucide-react";
 
 export default function Home() {
 	const feedback = useGameSelector((state) => state.context.feedback);
@@ -22,12 +23,30 @@ export default function Home() {
 	if (!isClient) return null;
 
 	return (
-		<Stack
-			w={'screen'}
-			h={'screen'}
-		>
-			<h1>Wordle Clone (Português)</h1>
-			<p>Advinhe a palavra:</p>
+		<Stack w={"screen"} h={"screen"}>
+			<Flex
+				w={"full"}
+				pt={"6"}
+				pb={"6"}
+				px={"8"}
+				mdDown={{
+					pt: "8",
+					pb: "4",
+					px: "6",
+				}}
+				justifyContent={"space-between"}
+				alignItems={"center"}
+			>
+				<styled.button color="#e3e3e3">
+					<Info />
+				</styled.button>
+				<styled.h1 fontSize={"2xl"} fontWeight={"extrabold"} color={"text"}>
+					Adivinhe a palavra
+				</styled.h1>
+				<styled.button color="#e3e3e3">
+					<Info />
+				</styled.button>
+			</Flex>
 
 			<Words feedback={feedback} />
 			<Keyboard feedback={feedback} />
