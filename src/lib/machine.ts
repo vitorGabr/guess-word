@@ -15,6 +15,58 @@ export const machine = setup({
 			| { type: "ARROW_CHANGE"; direction: "left" | "right" },
 	},
 	guards: {},
+	actions: {
+		giveFeedback: assign(({ context }) => {
+			const { currentGuess, targetWord } = context;
+
+			const splitWord = targetWord.split("");
+			const feedback: GameFeedback[] = [];
+
+			const letterCountMap = splitWord.reduce(
+				(acc, letter) => {
+					acc[letter] = (acc[letter] || 0) + 1;
+					return acc;
+				},
+				{} as Record<string, number>,
+			);
+
+			currentGuess.forEach((letter, index) => {
+				if (letter === splitWord[index]) {
+					feedback.push({
+						letter,
+						status: "correct",
+					});
+					letterCountMap[letter] -= 1;
+				} else if (letterCountMap[letter] > 0) {
+					feedback.push({
+						letter,
+						status: "present",
+					});
+					letterCountMap[letter] -= 1;
+				} else {
+					feedback.push({
+						letter,
+						status: "absent",
+					});
+				}
+			});
+
+			const response = {
+				feedback: [...context.feedback, feedback],
+				currentCol: 0,
+				currentGuess: [],
+			};
+
+			saveGameForToday({
+				context: {
+					...context,
+					...response,
+				},
+			});
+
+			return response;
+		}),
+	},
 }).createMachine({
 	context: ({ input }) => {
 		return {
@@ -31,32 +83,28 @@ export const machine = setup({
 			on: {
 				INPUT_LETTER: {
 					actions: assign(({ context, event }) => {
-						const { currentGuess, currentCol, targetWord } = context;
-
-						const maxCol = targetWord.length;
-						const col = Math.min(currentCol, maxCol - 1);
+						const { currentGuess, currentCol } = context;
+						const col = Math.min(currentCol, 5 - 1);
 						const newGuess = [...currentGuess];
 
 						newGuess[col] = event.letter;
 
 						return {
 							currentGuess: newGuess,
-							currentCol: Math.min(currentCol + 1, maxCol),
+							currentCol: Math.min(currentCol + 1, 4),
 						};
 					}),
 				},
 				BACKSPACE: {
 					actions: assign(({ context }) => {
 						const { currentGuess, currentCol } = context;
-						if (currentCol > 0) {
-							const newGuess = [...currentGuess];
-							newGuess[currentCol - 1] = "";
-							return {
-								currentGuess: newGuess,
-								currentCol: currentCol - 1,
-							};
-						}
-						return context;
+						const newGuess = [...currentGuess];
+						newGuess[currentCol] = "";
+
+						return {
+							currentCol: Math.max(0, currentCol - 1),
+							currentGuess: newGuess,
+						};
 					}),
 				},
 				EDIT_LETTER_POSITION: {
@@ -74,8 +122,8 @@ export const machine = setup({
 				ARROW_CHANGE: {
 					actions: assign(({ context, event }) => {
 						const { direction } = event;
-						const { currentCol, targetWord } = context;
-						const maxCol = targetWord.length;
+						const { currentCol } = context;
+						const maxCol = 4;
 						const newCol =
 							direction === "left" ? currentCol - 1 : currentCol + 1;
 						return {
@@ -93,6 +141,9 @@ export const machine = setup({
 						const { currentGuess, targetWord } = context;
 						return currentGuess.join("") === targetWord;
 					},
+					actions: {
+						type: "giveFeedback",
+					},
 				},
 				{
 					target: "lost",
@@ -100,6 +151,9 @@ export const machine = setup({
 						const { feedback } = context;
 						const currentRow = feedback.length + 1;
 						return currentRow >= 6;
+					},
+					actions: {
+						type: "giveFeedback",
 					},
 				},
 				{
@@ -111,56 +165,9 @@ export const machine = setup({
 				},
 				{
 					target: "playing",
-					actions: assign(({ context }) => {
-						const { currentGuess, targetWord } = context;
-
-						const splitWord = targetWord.split("");
-						const feedback: GameFeedback[] = [];
-
-						const letterCountMap = splitWord.reduce(
-							(acc, letter) => {
-								acc[letter] = (acc[letter] || 0) + 1;
-								return acc;
-							},
-							{} as Record<string, number>,
-						);
-
-						currentGuess.forEach((letter, index) => {
-							if (letter === splitWord[index]) {
-								feedback.push({
-									letter,
-									status: "correct",
-								});
-								letterCountMap[letter] -= 1;
-							} else if (letterCountMap[letter] > 0) {
-								feedback.push({
-									letter,
-									status: "present",
-								});
-								letterCountMap[letter] -= 1;
-							} else {
-								feedback.push({
-									letter,
-									status: "absent",
-								});
-							}
-						});
-
-						const response = {
-							feedback: [...context.feedback, feedback],
-							currentCol: 0,
-							currentGuess: [],
-						};
-
-						saveGameForToday({
-							context: {
-								...context,
-								...response,
-							},
-						});
-
-						return response;
-					}),
+					actions: {
+						type: "giveFeedback",
+					},
 				},
 			],
 		},

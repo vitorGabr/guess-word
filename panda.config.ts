@@ -1,3 +1,5 @@
+import { word } from "@/theme/recipes/word";
+import { defineColorTokens } from "@/theme/tokens/colors";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
@@ -9,7 +11,14 @@ export default defineConfig({
 	exclude: [],
 	jsxFramework: "react",
 	theme: {
-		extend: {},
+		extend: {
+			tokens: {
+				colors: defineColorTokens,
+			}
+		},
+		recipes: {
+			word: word
+		}
 	},
 	outdir: "styled-system",
 });

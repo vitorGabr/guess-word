@@ -1,6 +1,8 @@
 import { useGameActorRef, useGameSelector } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
-import { styled } from "@/styled-system/jsx";
+import { css, cx } from "@/styled-system/css";
+import { Flex, Stack, styled } from "@/styled-system/jsx";
+import { word } from "@/styled-system/recipes";
 
 type WordsProps = {
 	feedback: GameFeedback[][];
@@ -8,61 +10,42 @@ type WordsProps = {
 
 export function Words({ feedback }: WordsProps) {
 	const currentGuess = useGameSelector((state) => state.context.currentGuess);
+	const currentCol = useGameSelector((state) => state.context.currentCol);
 	const actorRef = useGameActorRef();
 	const currentRow = feedback.length;
-  
+
+
 	const renderCell = (i: number, j: number) => {
 		let feedbackLetter: GameFeedback | null = null;
-
-		if (feedback[i]?.[j]) {
-			feedbackLetter = feedback[i][j];
-		}
-
+		if (feedback[i]?.[j]) feedbackLetter = feedback[i][j];
 		if (currentRow === i && currentGuess[j]) {
 			feedbackLetter = { letter: currentGuess[j] };
 		}
-
 		return (
 			<styled.div
 				key={`${i}-${j}`}
-				width="12"
-				height="12"
-				border="1px solid black"
-				margin="2px"
-				display="flex"
-				alignItems="center"
-				justifyContent="center"
+				className={cx(
+					word(),
+					currentRow === i && currentCol === j && css({ borderColor: "text" }),
+				)}
+				data-feedback={feedbackLetter?.status ?? "absent"}
 				aria-label={`Letter position ${j + 1}, row ${i + 1}`}
 				onClick={() => actorRef.send({ type: "EDIT_LETTER_POSITION", col: j })}
-				rounded="lg"
 			>
-				{feedbackLetter?.letter || ""}
+				{(feedbackLetter?.letter || "").toUpperCase()}
 			</styled.div>
 		);
 	};
 
 	const renderRow = (i: number) => (
-		<div
-			key={i}
-			style={{
-				display: "flex",
-				flexDirection: "row",
-			}}
-		>
-			{Array.from({ length: 5 }).map((_, j) =>
-				renderCell(i, j),
-			)}
-		</div>
+		<Flex key={i} gap="2">
+			{Array.from({ length: 5 }).map((_, j) => renderCell(i, j))}
+		</Flex>
 	);
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-			}}
-		>
+		<Stack gap="2" mx="auto">
 			{Array.from({ length: 6 }).map((_, i) => renderRow(i))}
-		</div>
+		</Stack>
 	);
 }

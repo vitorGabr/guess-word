@@ -2,6 +2,7 @@ import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 import "./globals.css";
 import prisma from "@/lib/prisma";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -22,6 +23,7 @@ export default async function RootLayout({
 	return (
 		<html lang="pt-BR">
 			<body>
+				<Toaster />
 				<Providers targetWord={game?.word || "casas"}>{children}</Providers>
 			</body>
 		</html>
