@@ -1,5 +1,3 @@
-"use client";
-
 import { type GameSchema, gameSchema } from "./schema";
 import dayjs from "dayjs";
 
