@@ -2,7 +2,7 @@
 
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
-import { useGameSelector } from "@/lib/game-machine";
+import { useGameSelector } from "@/lib/machine";
 import { useEffect, useState } from "react";
 
 export default function Home() {

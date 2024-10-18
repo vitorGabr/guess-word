@@ -1,22 +1,17 @@
 import { saveGameForToday } from "@/lib/utils";
-import type { Feedback } from "@/types/feedback";
 import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
+import type { GameFeedback, GameSchema } from "./schema";
 
 type Event =
 	| { type: "INPUT_LETTER"; letter: string }
 	| { type: "BACKSPACE" }
 	| { type: "EDIT_LETTER_POSITION"; col: number }
-	| { type: "SUBMIT_GUESS" };
+	| { type: "SUBMIT_GUESS" }
+	| { type: "ARROW_CHANGE"; direction: "left" | "right" };
 
-type Context = {
-	feedback: Feedback[][];
-	currentCol: number;
-	targetWord: string;
-	currentGuess: string[];
-	invalidWord?: boolean;
-};
+type Context = GameSchema["context"];
 
 export const machine = setup({
 	types: {
@@ -80,6 +75,18 @@ export const machine = setup({
 					guard: ({ context }) =>
 						context.currentGuess.join("").length === context.targetWord.length,
 				},
+				ARROW_CHANGE: {
+					actions: assign(({ context, event }) => {
+						const { direction } = event;
+						const { currentCol, targetWord } = context;
+						const maxCol = targetWord.length;
+						const newCol =
+							direction === "left" ? currentCol - 1 : currentCol + 1;
+						return {
+							currentCol: Math.min(Math.max(0, newCol), maxCol),
+						};
+					}),
+				},
 			},
 		},
 		checking: {
@@ -112,7 +119,7 @@ export const machine = setup({
 						const { currentGuess, targetWord } = context;
 
 						const splitWord = targetWord.split("");
-						const feedback: Feedback[] = [];
+						const feedback: GameFeedback[] = [];
 
 						const letterCountMap = splitWord.reduce(
 							(acc, letter) => {

@@ -1,4 +1,4 @@
-import { useGameActorRef } from "@/lib/game-machine";
+import { useGameActorRef } from "@/lib/machine";
 import { useCallback, useEffect } from "react";
 
 export const useKeyboardListener = () => {
@@ -8,10 +8,18 @@ export const useKeyboardListener = () => {
 		(key: string) => {
 			if (key === "Enter") {
 				someActorRef.send({ type: "SUBMIT_GUESS" });
-			} else if (key === "Backspace") {
+			}
+			if (key === "Backspace") {
 				someActorRef.send({ type: "BACKSPACE" });
-			} else if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
+			}
+			if (key.length === 1 && /^[a-zA-Z]$/.test(key)) {
 				someActorRef.send({ type: "INPUT_LETTER", letter: key.toLowerCase() });
+			}
+			if (key === "ArrowRight") {
+				someActorRef.send({ type: "ARROW_CHANGE",direction: "right" });
+			}
+			if (key === "ArrowLeft") {
+				someActorRef.send({ type: "ARROW_CHANGE",direction: "left" });
 			}
 		},
 		[someActorRef],

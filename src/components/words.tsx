@@ -1,9 +1,9 @@
-import { useGameActorRef, useGameSelector } from "@/lib/game-machine";
+import { useGameActorRef, useGameSelector } from "@/lib/machine";
+import type { GameFeedback } from "@/lib/schema";
 import { styled } from "@/styled-system/jsx";
-import type { Feedback } from "@/types/feedback";
 
 type WordsProps = {
-	feedback: Feedback[][];
+	feedback: GameFeedback[][];
 };
 
 export function Words({ feedback }: WordsProps) {
@@ -12,7 +12,7 @@ export function Words({ feedback }: WordsProps) {
 	const currentRow = feedback.length;
   
 	const renderCell = (i: number, j: number) => {
-		let feedbackLetter: Feedback | null = null;
+		let feedbackLetter: GameFeedback | null = null;
 
 		if (feedback[i]?.[j]) {
 			feedbackLetter = feedback[i][j];
