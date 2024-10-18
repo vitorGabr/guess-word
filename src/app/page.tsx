@@ -23,7 +23,7 @@ export default function Home() {
 	if (!isClient) return null;
 
 	return (
-		<Stack w={"screen"} h={"screen"}>
+		<Stack w={"screen"} h={"screen"} data-testid="home-component">
 			<Flex
 				w={"full"}
 				pt={"6"}

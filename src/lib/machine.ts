@@ -4,7 +4,7 @@ import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
 import type { GameFeedback, GameSchema } from "./schema";
 
-export const machine = setup({
+export const gameMachine = setup({
 	types: {
 		context: {} as GameSchema["context"],
 		events: {} as
@@ -90,7 +90,8 @@ export const machine = setup({
 					actions: assign(({ context }) => {
 						const { currentGuess, currentCol } = context;
 						const newGuess = [...currentGuess];
-						newGuess[currentCol] = "";
+						const col = newGuess[currentCol] === undefined ? 0 : currentCol;
+						newGuess[col] = "";
 
 						return {
 							currentCol: Math.max(0, currentCol - 1),
@@ -205,4 +206,4 @@ export const {
 	Provider: GameProvider,
 	useActorRef: useGameActorRef,
 	useSelector: useGameSelector,
-} = createActorContext(machine);
+} = createActorContext(gameMachine);
