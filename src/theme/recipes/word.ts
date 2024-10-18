@@ -13,6 +13,10 @@ export const word = defineRecipe({
 		color: "fg.default",
 		fontSize: "2xl",
 		fontWeight: "bold",
+		cursor: "pointer",
+		'&[data-status="active"]': {
+			borderColor: "fg.default"
+		},
 		'&[data-feedback="correct"]': {
 			borderColor: "feedback.correct",
 		},

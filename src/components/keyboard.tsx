@@ -19,10 +19,17 @@ type KeyItem = (typeof KEYS)[number][number];
 
 export function Keyboard({ feedback }: Props) {
 	const actor = useGameActorRef();
-	const distinctLetters = useMemo(() => {
-		const allLetters = feedback.flat().map((item) => item.letter);
-		return Array.from(new Set(allLetters));
-	}, [feedback]);
+
+	const distinctLetterObjects: GameFeedback[] = useMemo(() => {
+		const uniqueLetterMap = new Map();
+		for (const item of feedback.flat()) {
+			const lowerLetter = item.letter.toLowerCase();
+			if (!uniqueLetterMap.has(lowerLetter)) {
+			  uniqueLetterMap.set(lowerLetter, { letter: lowerLetter, status: item.status });
+			}
+		}
+		return Array.from(uniqueLetterMap.values());
+	  }, [feedback]);
 
 	function onClick(letter: KeyItem) {
 		if (letter === "enter") {
@@ -61,18 +68,20 @@ export function Keyboard({ feedback }: Props) {
 					alignItems={"center"}
 					justifyContent={"center"}
 				>
-					{row.map((k) => (
-						<KeyItem
-							className={cx(key())}
-							key={k}
-							aria-label={`Tecla ${k}`}
-							onClick={() => onClick(k)}
-							type="button"
-                            data-letter={k}
-						>
-							{showKeyLetter(k)}
-						</KeyItem>
-					))}
+					{row.map((k) => {
+						const feedback = distinctLetterObjects.find((item) => item.letter === k);
+						return <KeyItem
+						className={cx(key())}
+						key={k}
+						aria-label={`Tecla ${k}`}
+						data-feedback={feedback?.status ?? 'untouched'}
+						onClick={() => onClick(k)}
+						type="button"
+						data-letter={k}
+					>
+						{showKeyLetter(k)}
+					</KeyItem>
+					})}
 				</Flex>
 			))}
 		</Stack>

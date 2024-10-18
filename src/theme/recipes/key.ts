@@ -29,6 +29,16 @@ export const key = defineRecipe({
 		color: "fg.default",
 		fontWeight: "bold",
 		textTransform: "uppercase",
-		bg: "feedback.absent",
+		bg: "feedback.untouched",
+		'&[data-feedback="correct"]': {
+			bg: "feedback.correct",
+		},
+		'&[data-feedback="absent"]': {
+			bg: "feedback.absent",
+			color: "#a9a8aa",
+		},
+		'&[data-feedback="present"]': {
+			bg: "feedback.present",
+		},
 	},
 });
