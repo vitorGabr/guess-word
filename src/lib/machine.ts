@@ -51,20 +51,11 @@ export const machine = setup({
 				}
 			});
 
-			const response = {
+			return {
 				feedback: [...context.feedback, feedback],
 				currentCol: 0,
 				currentGuess: [],
 			};
-
-			saveGameForToday({
-				context: {
-					...context,
-					...response,
-				},
-			});
-
-			return response;
 		}),
 	},
 }).createMachine({
@@ -141,9 +132,11 @@ export const machine = setup({
 						const { currentGuess, targetWord } = context;
 						return currentGuess.join("") === targetWord;
 					},
-					actions: {
-						type: "giveFeedback",
-					},
+					actions: [
+						{
+							type: "giveFeedback",
+						},
+					],
 				},
 				{
 					target: "lost",
@@ -165,9 +158,16 @@ export const machine = setup({
 				},
 				{
 					target: "playing",
-					actions: {
-						type: "giveFeedback",
-					},
+					actions: [
+						{
+							type: "giveFeedback",
+						},
+						({ context }) => {
+							saveGameForToday({
+								context,
+							});
+						},
+					],
 				},
 			],
 		},

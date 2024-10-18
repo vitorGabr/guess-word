@@ -12,7 +12,7 @@ export const loadGameForToday = () => {
 	}
 };
 
-export function saveGameForToday(data: GameSchema) {
+export function saveGameForToday(data: Pick<GameSchema,'context' | 'value' | 'status'>) {
 	try {
 		const today = dayjs().format("YYYY-MM-DD");
 		const savedGame = JSON.parse(localStorage.getItem("data") || "{}");
