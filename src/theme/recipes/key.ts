@@ -26,7 +26,7 @@ export const key = defineRecipe({
 			},
 		},
 		rounded: "sm",
-		color: "text",
+		color: "fg.default",
 		fontWeight: "bold",
 		textTransform: "uppercase",
 		bg: "feedback.absent",

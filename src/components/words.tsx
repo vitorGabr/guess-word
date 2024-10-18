@@ -25,7 +25,7 @@ export function Words({ feedback }: WordsProps) {
 				key={`${i}-${j}`}
 				className={cx(
 					word(),
-					currentRow === i && currentCol === j && css({ borderColor: "text" }),
+					currentRow === i && currentCol === j && css({ borderColor: "fg.default" }),
 				)}
 				data-feedback={feedbackLetter?.status ?? "absent"}
 				aria-label={`Letter position ${j + 1}, row ${i + 1}`}

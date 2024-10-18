@@ -37,13 +37,17 @@ export default function Home() {
 				justifyContent={"space-between"}
 				alignItems={"center"}
 			>
-				<styled.button color="#e3e3e3">
+				<styled.button color="fg.subtle">
 					<Info />
 				</styled.button>
-				<styled.h1 fontSize={"2xl"} fontWeight={"extrabold"} color={"text"}>
+				<styled.h1
+					fontSize={"2xl"}
+					fontWeight={"extrabold"}
+					color={"fg.default"}
+				>
 					Adivinhe a palavra
 				</styled.h1>
-				<styled.button color="#e3e3e3">
+				<styled.button color="fg.subtle">
 					<Info />
 				</styled.button>
 			</Flex>

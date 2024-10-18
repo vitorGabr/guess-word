@@ -7,13 +7,16 @@ export const defineColorTokens = defineTokens.colors({
 		present: { value: "#ff9000" },
 	},
 	bg: {
-		DEFAULT: {
+		default: {
 			value: "#ffffff",
 		},
 	},
-    text: {
-        DEFAULT: {
-            value: "#1d1e2e",
-        }
-    }
+	fg: {
+		default: {
+			value: "#1d1e2e",
+		},
+		subtle: {
+			value: "#e3e3e3",
+		}
+	}
 });
