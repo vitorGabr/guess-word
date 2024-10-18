@@ -1,5 +1,6 @@
 "use client";
 
+import { Keyboard } from "@/components/keyboard";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
@@ -29,6 +30,7 @@ export default function Home() {
 			<p>Advinhe a palavra:</p>
 
 			<Words feedback={feedback} />
+			<Keyboard feedback={feedback} />
 		</Stack>
 	);
 }
