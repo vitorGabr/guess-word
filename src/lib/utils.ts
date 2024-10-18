@@ -20,7 +20,6 @@ const schema = z.record(
 			currentCol: z.number().max(5),
 			targetWord: z.string().max(5),
 			currentGuess: z.array(z.string()).max(5),
-			invalidWord: z.boolean().optional().default(false),
 		}),
 		value: z.enum(["playing", "checking", "won", "lost"]).default("playing"),
 		children: z.any().default({}),

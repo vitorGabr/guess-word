@@ -31,7 +31,6 @@ export const machine = setup({
 			currentCol: 0,
 			targetWord: input as string,
 			currentGuess: [],
-			invalidWord: false,
 		};
 	},
 	id: "wordle",
@@ -101,14 +100,11 @@ export const machine = setup({
 					},
 				},
 				{
-					target: "playing",
+					target: "invalidWord",
 					guard: ({ context }) => {
 						const { currentGuess } = context;
 						return !dict.includes(currentGuess.join(""));
 					},
-					actions: assign({
-						invalidWord: true,
-					})
 				},
 				{
 					target: "playing",
@@ -164,6 +160,13 @@ export const machine = setup({
 					}),
 				},
 			],
+		},
+		invalidWord: {
+			after: {
+				50: {
+					target: "playing",
+				},
+			},
 		},
 		won: {
 			type: "final",

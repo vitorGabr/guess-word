@@ -1,4 +1,4 @@
-import { useGameActorRef } from "@/lib/state-machines/game";
+import { useGameActorRef } from "@/lib/game-machine";
 import { useCallback, useEffect } from "react";
 
 export const useKeyboardListener = () => {

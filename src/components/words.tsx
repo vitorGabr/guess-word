@@ -1,4 +1,4 @@
-import { useGameActorRef, useGameSelector } from "@/lib/state-machines/game";
+import { useGameActorRef, useGameSelector } from "@/lib/game-machine";
 import { styled } from "@/styled-system/jsx";
 import type { Feedback } from "@/types/feedback";
 

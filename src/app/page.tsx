@@ -2,7 +2,7 @@
 
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
-import { useGameSelector } from "@/lib/state-machines/game";
+import { useGameSelector } from "@/lib/game-machine";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -13,6 +13,7 @@ export default function Home() {
 	useEffect(() => {
 		setIsClient(true);
 	}, []);
+
 	if (!isClient) return null;
 
 	return (

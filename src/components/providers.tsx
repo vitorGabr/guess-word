@@ -1,6 +1,6 @@
 "use client";
 
-import { GameProvider } from "@/lib/state-machines/game";
+import { GameProvider } from "@/lib/game-machine";
 import { loadGameForToday } from "@/lib/utils";
 import type { PropsWithChildren } from "react";
 
