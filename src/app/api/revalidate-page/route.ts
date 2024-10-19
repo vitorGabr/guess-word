@@ -8,6 +8,6 @@ export function GET(request: NextRequest) {
 			status: 401,
 		});
 	}
-    revalidatePath("/");
+	revalidatePath("/");
 	return Response.json({ success: true });
 }

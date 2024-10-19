@@ -17,7 +17,7 @@ export const word = defineRecipe({
 		cursor: "pointer",
 		bg: "fg.subtle",
 		'&[data-status="active"]': {
-			borderColor: "fg.default"
+			borderColor: "fg.default",
 		},
 		'&[data-feedback="correct"]': {
 			borderColor: "feedback.correct",

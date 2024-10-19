@@ -1,13 +1,14 @@
 "use client";
 
+import { GameResult } from "@/components/game-result";
 import { Keyboard } from "@/components/keyboard";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
 import { useGameSelector } from "@/lib/machine";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
-import { useEffect, useState } from "react";
 import { Info } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 	const feedback = useGameSelector((state) => state.context.feedback);
@@ -54,6 +55,7 @@ export default function Home() {
 
 			<Words feedback={feedback} />
 			<Keyboard feedback={feedback} />
+			<GameResult />
 		</Stack>
 	);
 }

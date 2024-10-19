@@ -1,9 +1,9 @@
+import { KEYS, WEIGHT_STATUS } from "@/constants/keyboard";
 import { useGameActorRef } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
-import { useCallback, useMemo } from "react";
 import { key } from "@/styled-system/recipes";
-import { WEIGHT_STATUS, KEYS } from "@/constants/keyboard";
+import { useCallback, useMemo } from "react";
 
 type Props = {
 	feedback: GameFeedback[][];

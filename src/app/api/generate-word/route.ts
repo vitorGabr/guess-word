@@ -35,7 +35,7 @@ export async function GET() {
 		});
 
 		const lastGame = await prisma.games.findFirst({
-			orderBy: { id: 'desc' },
+			orderBy: { id: "desc" },
 		});
 
 		const targetDate = dayjs(
@@ -50,7 +50,7 @@ export async function GET() {
 		});
 
 		await prisma.games.createMany({
-			data: transformedWords
+			data: transformedWords,
 		});
 		return Response.json(transformedWords);
 	} catch (error) {
