@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@pandacss/dev": "^0.46.1",
+    "@pandacss/dev": "^0.47.0",
     "@testing-library/react": "^16.0.1",
     "@types/node": "^22",
     "@types/react": "^18.3.11",

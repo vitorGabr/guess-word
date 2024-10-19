@@ -1,55 +1,60 @@
 import { useGameActorRef } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { key } from "@/styled-system/recipes";
-import { cx } from "@/styled-system/css";
+import { WEIGHT_STATUS, KEYS } from "@/constants/keyboard";
 
 type Props = {
 	feedback: GameFeedback[][];
 };
 
-const KEYS = [
-	["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-	["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-	["backspace", "z", "x", "c", "v", "b", "n", "m", "enter"],
-] as const;
-
-type KeyItem = (typeof KEYS)[number][number];
+const KEY_LABELS = {
+	enter: "Enviar",
+	backspace: "⌫",
+} as Record<string, string>;
 
 export function Keyboard({ feedback }: Props) {
 	const actor = useGameActorRef();
 
-	const distinctLetterObjects: GameFeedback[] = useMemo(() => {
-		const uniqueLetterMap = new Map();
-		for (const item of feedback.flat()) {
-			const lowerLetter = item.letter.toLowerCase();
-			if (!uniqueLetterMap.has(lowerLetter)) {
-			  uniqueLetterMap.set(lowerLetter, { letter: lowerLetter, status: item.status });
+	const distinctLetterObjects = useMemo(() => {
+		const letters = feedback.flat();
+		const feedbackMap = new Map<string, GameFeedback>();
+
+		for (const letter of letters) {
+			const existingLetter = feedbackMap.get(letter.letter);
+
+			if (
+				!existingLetter ||
+				WEIGHT_STATUS.indexOf(existingLetter.status) <
+					WEIGHT_STATUS.indexOf(letter.status)
+			) {
+				feedbackMap.set(letter.letter, letter);
 			}
 		}
-		return Array.from(uniqueLetterMap.values());
-	  }, [feedback]);
 
-	function onClick(letter: KeyItem) {
-		if (letter === "enter") {
-			actor.send({ type: "SUBMIT_GUESS" });
-			return;
-		}
-		if (letter === "backspace") {
-			actor.send({ type: "BACKSPACE" });
-			return;
-		}
-		actor.send({ type: "INPUT_LETTER", letter });
-	}
+		return Array.from(feedbackMap.values());
+	}, [feedback]);
 
-	function showKeyLetter(letter: KeyItem) {
-		if (letter === "enter") return "Enviar";
-		if (letter === "backspace") return "⌫";
-		return letter;
-	}
-    
-    return (
+	const handleClick = useCallback(
+		(letter: string) => {
+			switch (letter) {
+				case "enter":
+					actor.send({ type: "SUBMIT_GUESS" });
+					break;
+				case "backspace":
+					actor.send({ type: "BACKSPACE" });
+					break;
+				default:
+					actor.send({ type: "INPUT_LETTER", letter });
+			}
+		},
+		[actor],
+	);
+
+	const showKeyLetter = (letter: string) => KEY_LABELS[letter] || letter;
+
+	return (
 		<Stack
 			mx="auto"
 			alignItems={"center"}
@@ -69,18 +74,22 @@ export function Keyboard({ feedback }: Props) {
 					justifyContent={"center"}
 				>
 					{row.map((k) => {
-						const feedback = distinctLetterObjects.find((item) => item.letter === k);
-						return <KeyItem
-						className={cx(key())}
-						key={k}
-						aria-label={`Tecla ${k}`}
-						data-feedback={feedback?.status ?? 'untouched'}
-						onClick={() => onClick(k)}
-						type="button"
-						data-letter={k}
-					>
-						{showKeyLetter(k)}
-					</KeyItem>
+						const feedback = distinctLetterObjects.find(
+							(item) => item.letter === k,
+						);
+						return (
+							<KeyItem
+								className={key()}
+								key={k}
+								aria-label={`Tecla ${k}`}
+								data-feedback={feedback?.status ?? "untouched"}
+								onClick={() => handleClick(k)}
+								type="button"
+								data-letter={k}
+							>
+								{showKeyLetter(k)}
+							</KeyItem>
+						);
 					})}
 				</Flex>
 			))}
