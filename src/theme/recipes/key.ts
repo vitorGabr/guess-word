@@ -29,7 +29,7 @@ export const key = defineRecipe({
 		color: "fg.default",
 		fontWeight: "bold",
 		textTransform: "uppercase",
-		bg: "feedback.untouched",
+		bg: "fg.subtle",
 		'&[data-feedback="correct"]': {
 			bg: "feedback.correct",
 		},

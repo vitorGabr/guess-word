@@ -19,13 +19,12 @@ export function Words({ feedback }: WordsProps) {
 		if (currentRow === i && currentGuess[j]) {
 			feedbackLetter = { letter: currentGuess[j] };
 		}
-
 		return (
 			<styled.button
 				key={`${i}-${j}`}
 				className={word()}
 				data-status={currentRow === i && currentCol === j && "active"}
-				data-feedback={feedbackLetter?.status ?? "absent"}
+				data-feedback={feedbackLetter?.status}
 				aria-label={`Letter position ${j + 1}, row ${i + 1}`}
 				type="button"
 				onClick={() => actorRef.send({ type: "EDIT_LETTER_POSITION", col: j })}

@@ -90,7 +90,8 @@ export const gameMachine = setup({
 					actions: assign(({ context }) => {
 						const { currentGuess, currentCol } = context;
 						const newGuess = [...currentGuess];
-						const col = newGuess[currentCol] === undefined ? 0 : currentCol;
+						const current = newGuess[currentCol] ?? "";
+						const col = currentCol - (current.length === 0 ? 1 : 0);
 						newGuess[col] = "";
 
 						return {

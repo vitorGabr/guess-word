@@ -9,11 +9,13 @@ export const word = defineRecipe({
 		width: "12",
 		height: "12",
 		border: "2px solid",
+		borderColor: "fg.subtle",
 		rounded: "xl",
 		color: "fg.default",
 		fontSize: "2xl",
 		fontWeight: "bold",
 		cursor: "pointer",
+		bg: "fg.subtle",
 		'&[data-status="active"]': {
 			borderColor: "fg.default"
 		},
