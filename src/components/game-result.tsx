@@ -1,6 +1,6 @@
 import { useGameSelector } from "@/lib/machine";
 import { getGameHistory } from "@/lib/utils";
-import { Box, Flex, Grid, Stack } from "@/styled-system/jsx";
+import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 import { NextGameCountdown } from "./next-game-countdown";
@@ -44,11 +44,21 @@ export function GameResult() {
 		<Dialog isOpen={status === "done"}>
 			<Stack alignItems="center" gap="4">
 				<Stack gap="6" alignItems="center">
-					<Text as="h3" fontSize="lg" fontWeight="semibold">
-						{lastWord?.value === "won"
-							? "Parabéns você acertou! 🎉"
-							: "Que pena você errou! 😢"}
-					</Text>
+					<Stack alignItems="center">
+						<Center px="4" bgColor="fg.muted" rounded="lg" fontSize="sm">
+							<Text>
+								Palavra certa:
+								<Text as="span" fontSize="md" fontWeight="bold">
+									{`  ${lastWord?.context.targetWord}`}
+								</Text>
+							</Text>
+						</Center>
+						<Text as="h3" fontSize="lg" fontWeight="semibold">
+							{lastWord?.value === "won"
+								? "Parabéns você acertou! 🎉"
+								: "Que pena você errou! 😢"}
+						</Text>
+					</Stack>
 					<Grid columns={3} gap="3">
 						{data.map((item) => (
 							<Stack
