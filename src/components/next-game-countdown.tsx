@@ -11,26 +11,22 @@ export function NextGameCountdown() {
 
 	useEffect(() => {
 		const calculateTimeLeft = () => {
-		  const now = dayjs();
-		  const midnight = dayjs().endOf("day");
-		  const diff = dayjs.duration(midnight.diff(now));
-	
-		  setTimeLeft(
-			`${diff.hours().toString().padStart(2, "0")}:${diff
-			  .minutes()
-			  .toString()
-			  .padStart(2, "0")}:${diff
-			  .seconds()
-			  .toString()
-			  .padStart(2, "0")}`
-		  );
+			const now = dayjs();
+			const midnight = dayjs().endOf("day");
+			const diff = dayjs.duration(midnight.diff(now));
+
+			const hours = diff.hours().toString().padStart(2, "0");
+			const minutes = diff.minutes().toString().padStart(2, "0");
+			const seconds = diff.seconds().toString().padStart(2, "0");
+
+			setTimeLeft(`${hours}:${minutes}:${seconds}`);
 		};
-	
+
 		calculateTimeLeft();
 		const interval = setInterval(calculateTimeLeft, 1000);
-	
+
 		return () => clearInterval(interval);
-	  }, []);
+	}, []);
 
 	return (
 		<Stack
