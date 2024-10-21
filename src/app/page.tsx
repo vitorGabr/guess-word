@@ -3,6 +3,7 @@
 import { GameResult } from "@/components/game-result";
 import { HowToPlay } from "@/components/how-to-play";
 import { Keyboard } from "@/components/keyboard";
+import { Heading } from "@/components/ui/heading";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
@@ -42,13 +43,14 @@ export default function Home() {
 				<styled.button color="fg.subtle">
 					<Info />
 				</styled.button>
-				<styled.h1
+				<Heading
+					as={"h1"}
 					fontSize={"2xl"}
 					fontWeight={"extrabold"}
 					color={"fg.default"}
 				>
 					Adivinhe a palavra
-				</styled.h1>
+				</Heading>
 				<styled.button color="fg.subtle">
 					<Info />
 				</styled.button>

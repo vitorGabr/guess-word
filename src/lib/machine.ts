@@ -3,6 +3,7 @@ import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
 import type { GameFeedback, GameSchema } from "./schema";
+import { DEFAULTS } from "@/constants/default";
 
 export const gameMachine = setup({
 	types: {
@@ -71,14 +72,14 @@ export const gameMachine = setup({
 				INPUT_LETTER: {
 					actions: assign(({ context, event }) => {
 						const { currentGuess, currentCol } = context;
-						const col = Math.min(currentCol, 5 - 1);
+						const col = Math.min(currentCol, DEFAULTS.MAX_COL);
 						const newGuess = [...currentGuess];
 
 						newGuess[col] = event.letter;
 
 						return {
 							currentGuess: newGuess,
-							currentCol: Math.min(currentCol + 1, 4),
+							currentCol: Math.min(currentCol + 1, DEFAULTS.MAX_COL),
 						};
 					}),
 				},
@@ -112,11 +113,13 @@ export const gameMachine = setup({
 					actions: assign(({ context, event }) => {
 						const { direction } = event;
 						const { currentCol } = context;
-						const maxCol = 4;
 						const newCol =
 							direction === "left" ? currentCol - 1 : currentCol + 1;
 						return {
-							currentCol: Math.min(Math.max(0, newCol), maxCol),
+							currentCol: Math.min(
+								Math.max(0, newCol),
+								DEFAULTS.MAX_COL,
+							),
 						};
 					}),
 				},
@@ -141,7 +144,7 @@ export const gameMachine = setup({
 					guard: ({ context }) => {
 						const { feedback } = context;
 						const currentRow = feedback.length + 1;
-						return currentRow >= 6;
+						return currentRow >= DEFAULTS.MAX_ATTEMPTS;
 					},
 					actions: {
 						type: "giveFeedback",

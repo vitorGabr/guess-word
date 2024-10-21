@@ -1,3 +1,4 @@
+import { DEFAULTS } from "@/constants/default";
 import { useGameActorRef, useGameSelector } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
@@ -36,13 +37,13 @@ export function Words({ feedback }: WordsProps) {
 
 	const renderRow = (i: number) => (
 		<Flex key={i} gap="2">
-			{Array.from({ length: 5 }).map((_, j) => renderCell(i, j))}
+			{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) => renderCell(i, j))}
 		</Flex>
 	);
 
 	return (
 		<Stack gap="2" mx="auto" flex={1}>
-			{Array.from({ length: 6 }).map((_, i) => renderRow(i))}
+			{Array.from({ length: DEFAULTS.MAX_ATTEMPTS }).map((_, i) => renderRow(i))}
 		</Stack>
 	);
 }

@@ -20,7 +20,7 @@
     "dayjs": "^1.11.13",
     "framer-motion": "12.0.0-alpha.0",
     "lucide-react": "^0.453.0",
-    "next": "^15.0.0-rc.1",
+    "next": "^15.0.0",
     "react": "^19.0.0-rc-b8ae38f8-20241018",
     "react-dom": "^19.0.0-rc-b8ae38f8-20241018",
     "sonner": "^1.5.0",
