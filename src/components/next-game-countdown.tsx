@@ -1,32 +1,11 @@
 import { Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
 import { Text } from "./ui/text";
-import duration from "dayjs/plugin/duration";
-
-dayjs.extend(duration);
+import { Timer } from "@ark-ui/react/timer";
+import { flex } from "@/styled-system/patterns";
 
 export function NextGameCountdown() {
-	const [timeLeft, setTimeLeft] = useState("");
-
-	useEffect(() => {
-		const calculateTimeLeft = () => {
-			const now = dayjs();
-			const midnight = dayjs().endOf("day");
-			const diff = dayjs.duration(midnight.diff(now));
-
-			const hours = diff.hours().toString().padStart(2, "0");
-			const minutes = diff.minutes().toString().padStart(2, "0");
-			const seconds = diff.seconds().toString().padStart(2, "0");
-
-			setTimeLeft(`${hours}:${minutes}:${seconds}`);
-		};
-
-		calculateTimeLeft();
-		const interval = setInterval(calculateTimeLeft, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
+	const diff = dayjs().endOf("day").diff(dayjs(), "milliseconds");
 
 	return (
 		<Stack
@@ -38,16 +17,28 @@ export function NextGameCountdown() {
 			<Text fontSize="xs" fontWeight="medium">
 				PRÓXIMA PALAVRA EM
 			</Text>
-			<Text
-				fontSize={{
-					base: "3xl",
-					md: "4xl",
-				}}
-				fontWeight={"bold"}
-				lineHeight={"1"}
+			<Timer.Root
+				startMs={diff}
+				autoStart
+				countdown
 			>
-				{timeLeft}
-			</Text>
+				<Timer.Area
+					className={flex({
+						fontSize: {
+							base: "3xl",
+							md: "4xl",
+						},
+						fontWeight: "bold",
+						lineHeight: "1",
+					})}
+				>
+					<Timer.Item type="hours" />
+					<Timer.Separator>:</Timer.Separator>
+					<Timer.Item type="minutes" />
+					<Timer.Separator>:</Timer.Separator>
+					<Timer.Item type="seconds" />
+				</Timer.Area>
+			</Timer.Root>
 		</Stack>
 	);
 }

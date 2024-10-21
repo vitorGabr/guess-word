@@ -1,60 +1,53 @@
-import { Box, type BoxProps } from "@/styled-system/jsx";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+'use client'
+import type { Assign } from '@ark-ui/react'
+import { Dialog } from '@ark-ui/react/dialog'
+import { type DialogVariantProps, dialog } from 'styled-system/recipes'
+import type { ComponentProps, HTMLStyledProps } from 'styled-system/types'
+import { createStyleContext } from './utils/create-style-context'
 
-type DialogProps = BoxProps & {
-	isOpen: boolean;
-};
+const { withRootProvider, withContext } = createStyleContext(dialog)
 
-export function Dialog({ isOpen, children, ...rest }: DialogProps) {
-	useEffect(() => {
-		const body = document.body;
-		body.style.overflow = "hidden";
-		return () => {
-			body.style.overflow = "auto";
-		};
-	}, []);
+export type RootProviderProps = ComponentProps<typeof RootProvider>
+export const RootProvider = withRootProvider<Assign<Dialog.RootProviderProps, DialogVariantProps>>(
+  Dialog.RootProvider,
+)
 
-	if (!isOpen) {
-		return null;
-	}
+export type RootProps = ComponentProps<typeof Root>
+export const Root = withRootProvider<Assign<Dialog.RootProps, DialogVariantProps>>(Dialog.Root)
 
-	return (
-		<Box
-			w="full"
-			h="full"
-			bgColor="rgba(0, 0, 0, 0.5)"
-			position="fixed"
-			top="0"
-			left="0"
-			zIndex="modal"
-			display="flex"
-			justifyContent="center"
-			alignItems="center"
-			backdropFilter="blur(3px)"
-			{...rest}
-		>
-			<motion.div
-				initial={{ scale: 0 }}
-				animate={{ scale: 1 }}
-				transition={{ type: "spring", stiffness: 260, damping: 20 }}
-			>
-				<Box
-					bgColor="bg.default"
-					alignItems="center"
-					justifyContent="center"
-					py="8"
-					px="10"
-					gap="8"
-					rounded="xl"
-					mdDown={{
-						px: "5",
-						py: "6",
-					}}
-				>
-					{children}
-				</Box>
-			</motion.div>
-		</Box>
-	);
-}
+export const Backdrop = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<'div'>, Dialog.BackdropBaseProps>
+>(Dialog.Backdrop, 'backdrop')
+
+export const CloseTrigger = withContext<
+  HTMLButtonElement,
+  Assign<HTMLStyledProps<'button'>, Dialog.CloseTriggerBaseProps>
+>(Dialog.CloseTrigger, 'closeTrigger')
+
+export const Content = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<'div'>, Dialog.ContentBaseProps>
+>(Dialog.Content, 'content')
+
+export const Description = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<'div'>, Dialog.DescriptionBaseProps>
+>(Dialog.Description, 'description')
+
+export const Positioner = withContext<
+  HTMLDivElement,
+  Assign<HTMLStyledProps<'div'>, Dialog.PositionerBaseProps>
+>(Dialog.Positioner, 'positioner')
+
+export const Title = withContext<
+  HTMLHeadingElement,
+  Assign<HTMLStyledProps<'h2'>, Dialog.TitleBaseProps>
+>(Dialog.Title, 'title')
+
+export const Trigger = withContext<
+  HTMLButtonElement,
+  Assign<HTMLStyledProps<'button'>, Dialog.TriggerBaseProps>
+>(Dialog.Trigger, 'trigger')
+
+export { DialogContext as Context } from '@ark-ui/react/dialog'

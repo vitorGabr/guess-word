@@ -1,4 +1,4 @@
-import { recipes } from "@/theme/recipes";
+import { recipes, slotRecipes } from "@/theme/recipes";
 import { defineColorTokens } from "@/theme/tokens/colors";
 import { defineConfig } from "@pandacss/dev";
 
@@ -16,9 +16,8 @@ export default defineConfig({
 				colors: defineColorTokens,
 			},
 		},
-		recipes: {
-			...recipes
-		},
+		recipes,
+		slotRecipes
 	},
 	outdir: "styled-system",
 });

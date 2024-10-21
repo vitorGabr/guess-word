@@ -1,6 +1,7 @@
 "use client";
 
 import { GameResult } from "@/components/game-result";
+import { HowToPlay } from "@/components/how-to-play";
 import { Keyboard } from "@/components/keyboard";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
@@ -56,6 +57,7 @@ export default function Home() {
 			<Words feedback={feedback} />
 			<Keyboard feedback={feedback} />
 			<GameResult />
+			<HowToPlay />
 		</Stack>
 	);
 }
