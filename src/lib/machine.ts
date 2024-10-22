@@ -1,5 +1,5 @@
 import { DEFAULTS } from "@/constants/default";
-import { saveGameForToday } from "@/lib/utils";
+import { saveGameForToday } from "@/lib/persist-data";
 import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";

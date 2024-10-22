@@ -1,5 +1,5 @@
 import { useGameSelector } from "@/lib/machine";
-import { getGameHistory } from "@/lib/utils";
+import { getGameHistory } from "@/lib/persist-data";
 import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
 import { useMemo } from "react";
