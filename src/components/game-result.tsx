@@ -5,8 +5,7 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 import { NextGameCountdown } from "./next-game-countdown";
 import { ShareGame } from "./share-game";
-import * as Dialog from "./ui/dialog";
-import { Text } from "./ui/text";
+import { Text, Dialog } from "./ui";
 import { DEFAULTS } from "@/constants/default";
 
 function Content() {

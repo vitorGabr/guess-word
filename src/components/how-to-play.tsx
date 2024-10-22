@@ -4,8 +4,7 @@ import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word as wordRecipe } from "@/styled-system/recipes";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
-import * as Dialog from "./ui/dialog";
-import { Heading } from "./ui/heading";
+import { Heading, Dialog } from "./ui";
 import { Text } from "./ui/text";
 
 export function HowToPlay() {
