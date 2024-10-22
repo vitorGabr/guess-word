@@ -9,7 +9,8 @@ import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
 import { useGameSelector } from "@/lib/machine";
-import { Container, Flex, Stack } from "@/styled-system/jsx";
+import { Container, Flex } from "@/styled-system/jsx";
+import { stack } from "@/styled-system/patterns";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -26,7 +27,13 @@ export default function Home() {
 	if (!isClient) return null;
 
 	return (
-		<Stack w={"screen"} h={"screen"} data-testid="home-component">
+		<main
+			className={stack({
+				width: "100vw",
+				height: "100vh",
+			})}
+			data-testid="home-component"
+		>
 			<Container>
 				<Flex
 					pt={"6"}
@@ -37,7 +44,7 @@ export default function Home() {
 					<HowToPlay />
 					<Heading
 						as={"h1"}
-						fontSize={["xl","2xl","2xl"]}
+						fontSize={["xl", "2xl", "2xl"]}
 						fontWeight={"extrabold"}
 						color={"fg.default"}
 					>
@@ -50,6 +57,6 @@ export default function Home() {
 			<Words feedback={feedback} />
 			<Keyboard feedback={feedback} />
 			<GameResult />
-		</Stack>
+		</main>
 	);
 }

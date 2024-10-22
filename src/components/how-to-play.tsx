@@ -29,6 +29,7 @@ export function HowToPlay() {
 				color="fg.subtle"
 				onClick={() => setIsOpen(true)}
 				cursor={"pointer"}
+				aria-label="Botão de instruções de como jogar"
 			>
 				<Info />
 			</styled.button>
