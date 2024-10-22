@@ -19,7 +19,12 @@ type GameEvent =
 	| SubmitGuessEvent
 	| ArrowChangeEvent;
 
-const validWords = new Set(dict);
+function normalizeWord(word: string) {
+	return word
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "");
+}
 
 export const gameMachine = setup({
 	types: {
@@ -33,7 +38,10 @@ export const gameMachine = setup({
 		},
 		isInvalidWord: ({ context }) => {
 			const { currentGuess } = context;
-			return !validWords.has(currentGuess.join(""));
+
+			return !dict.find(
+				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
+			);
 		},
 		isWon: ({ context }) => {
 			const { currentGuess, targetWord } = context;
