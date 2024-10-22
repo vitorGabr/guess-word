@@ -38,14 +38,18 @@ export const gameMachine = setup({
 		},
 		isInvalidWord: ({ context }) => {
 			const { currentGuess } = context;
-
 			return !dict.find(
 				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
 			);
 		},
 		isWon: ({ context }) => {
 			const { currentGuess, targetWord } = context;
-			return currentGuess.join("") === targetWord;
+			const findWordInDict = dict.find(
+				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
+			)
+			
+			if(!findWordInDict) return false;
+			return findWordInDict === targetWord;
 		},
 		isLost: ({ context }) => {
 			const { feedback } = context;
