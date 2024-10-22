@@ -33,7 +33,7 @@ export default function Home() {
 				pb={"6"}
 				px={"8"}
 				mdDown={{
-					pt: "8",
+					pt: "4",
 					pb: "4",
 					px: "6",
 				}}
