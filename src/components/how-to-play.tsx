@@ -46,7 +46,7 @@ export function HowToPlay() {
 							gap="6"
 							alignItems="flex-start"
 							maxW={"md"}
-							h={["60vh", "70vh", "90vh"]}
+							h="90vh"
 							overflowY={"auto"}
 							scrollbarWidth={"thin"}
 						>

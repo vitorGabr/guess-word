@@ -37,7 +37,7 @@ export default function Home() {
 					<HowToPlay />
 					<Heading
 						as={"h1"}
-						fontSize={"2xl"}
+						fontSize={["xl","2xl","2xl"]}
 						fontWeight={"extrabold"}
 						color={"fg.default"}
 					>

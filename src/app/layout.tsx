@@ -2,14 +2,14 @@ import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 import "./globals.css";
 import prisma from "@/lib/prisma";
-import { Outfit } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 
 export const revalidate = false;
 export const metadata: Metadata = {
 	title: "Adivinhe a palavra",
 	description: "Jogo de adivinhação de palavras",
 };
-const body = Outfit({ subsets: ["latin"] });
+const body = Roboto_Mono({ subsets: ["latin"], variable: "--global-font-body" });
 
 export default async function RootLayout({
 	children,
