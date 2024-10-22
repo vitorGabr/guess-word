@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import prisma from "@/lib/prisma";
 import { Outfit } from "next/font/google";
-import { Toaster } from "sonner";
 
 export const revalidate = false;
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export default async function RootLayout({
 	return (
 		<html lang="pt-BR" suppressHydrationWarning>
 			<body className={`${body.className}`}>
-				<Toaster position="top-center" theme="system" />
 				<Providers targetWord={game?.word || "casas"}>{children}</Providers>
 			</body>
 		</html>

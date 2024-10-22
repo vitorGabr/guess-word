@@ -3,10 +3,10 @@ import type {
 	RecipeVariantRecord,
 	SlotRecipeConfig,
 } from "@pandacss/dev";
+import { dialog } from "./dialog";
 import { key } from "./key";
 import { text } from "./text";
 import { word } from "./word";
-import { dialog } from "./dialog";
 
 export const recipes: Record<string, RecipeConfig<RecipeVariantRecord>> = {
 	key,

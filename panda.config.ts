@@ -26,4 +26,20 @@ export default defineConfig({
 		slotRecipes
 	},
 	outdir: "styled-system",
+	patterns: {
+		extend: {
+			container: {
+				transform(props: any) {
+					return {
+						position: "relative",
+						width: "100%",
+						maxWidth: "5xl",
+						mx: "auto",
+						px: { base: "4", md: "0" },
+						...props,
+					};
+				},
+			},
+		},
+	},
 });

@@ -25,7 +25,9 @@ export function ShareGame({ feedback }: ShareGameProps) {
 		const pattern = completedWords
 			.map((word) =>
 				word
-					.map(({ status }) => (status && EMOJI_MAP[status]) || EMOJI_MAP.absent)
+					.map(
+						({ status }) => (status && EMOJI_MAP[status]) || EMOJI_MAP.absent,
+					)
 					.join(""),
 			)
 			.join("\n");

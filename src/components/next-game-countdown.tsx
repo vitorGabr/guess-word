@@ -1,8 +1,8 @@
 import { Stack } from "@/styled-system/jsx";
+import { flex } from "@/styled-system/patterns";
+import { Timer } from "@ark-ui/react/timer";
 import dayjs from "dayjs";
 import { Text } from "./ui/text";
-import { Timer } from "@ark-ui/react/timer";
-import { flex } from "@/styled-system/patterns";
 
 export function NextGameCountdown() {
 	const diff = dayjs().endOf("day").diff(dayjs(), "milliseconds");
@@ -13,16 +13,12 @@ export function NextGameCountdown() {
 			textAlign="center"
 			alignItems="center"
 			justifyContent="center"
-			w='95%'
+			w="95%"
 		>
 			<Text fontSize="xs" fontWeight="medium">
 				PRÓXIMA PALAVRA EM
 			</Text>
-			<Timer.Root
-				startMs={diff}
-				autoStart
-				countdown
-			>
+			<Timer.Root startMs={diff} autoStart countdown>
 				<Timer.Area
 					className={flex({
 						fontSize: {

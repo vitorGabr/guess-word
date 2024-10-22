@@ -4,9 +4,9 @@ import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 import { NextGameCountdown } from "./next-game-countdown";
+import { ShareGame } from "./share-game";
 import * as Dialog from "./ui/dialog";
 import { Text } from "./ui/text";
-import { ShareGame } from "./share-game";
 
 function Content() {
 	const game = getGameHistory();
@@ -44,7 +44,7 @@ function Content() {
 			<Dialog.Backdrop />
 			<Dialog.Positioner>
 				<Dialog.Content>
-					<Stack alignItems="center" p="6" gap='6'>
+					<Stack alignItems="center" p="6" gap="6">
 						<Stack gap="6" alignItems="center">
 							<Stack alignItems="center">
 								<Center px="4" bgColor="fg.muted" rounded="lg" fontSize="xs">
