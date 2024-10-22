@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "next dev --turbo",
-    "build": "npx prisma migrate deploy && next build",
+    "build": "prisma migrate deploy && prisma generate && && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "vitest"
