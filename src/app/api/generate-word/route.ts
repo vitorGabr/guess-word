@@ -14,10 +14,7 @@ type WordWithTargetDate = {
 const REQUIRED_WORD_LENGTH = 5;
 const REQUIRED_WORDS_COUNT = 7;
 
-const wordSchema = z
-	.string()
-	.length(REQUIRED_WORD_LENGTH)
-	.regex(/^[a-zA-Z]+$/);
+const wordSchema = z.string().length(REQUIRED_WORD_LENGTH);
 const wordsArraySchema = z.array(wordSchema).length(REQUIRED_WORDS_COUNT);
 
 const generateWordsPrompt = (): string => {
