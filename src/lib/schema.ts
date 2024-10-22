@@ -19,6 +19,11 @@ export const gameSchema = z.record(
 		children: z.any().default({}),
 		historyValue: z.any().default({}),
 		tags: z.array(z.any()).default([]),
+	}).refine((data) => {
+		if([ "won", "lost"].includes(data.value)) {
+			return data.status === "done";
+		}
+		return true;
 	}),
 );
 
