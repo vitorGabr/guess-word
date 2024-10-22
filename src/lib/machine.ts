@@ -60,7 +60,10 @@ export const gameMachine = setup({
 	actions: {
 		giveFeedback: assign(({ context }) => {
 			const { currentGuess, targetWord } = context;
-			const feedback = calculateFeedback(currentGuess, targetWord);
+			const findWordInDict = dict.find(
+				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
+			) || '';
+			const feedback = calculateFeedback(findWordInDict.split(''), targetWord);
 
 			return {
 				feedback: [...context.feedback, feedback],
