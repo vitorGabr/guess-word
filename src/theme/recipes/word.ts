@@ -3,7 +3,7 @@ import { defineRecipe } from "@pandacss/dev";
 export const word = defineRecipe({
 	className: "word",
 	base: {
-		display: "flex",
+		display: "inline-flex",
 		justifyContent: "center",
 		alignItems: "center",
 		width: "12",
@@ -15,7 +15,7 @@ export const word = defineRecipe({
 		fontSize: "2xl",
 		fontWeight: "bold",
 		cursor: "pointer",
-		bg: "fg.subtle",
+		bg: "bg.default",
 		'&[data-status="active"]': {
 			borderColor: "fg.default",
 		},

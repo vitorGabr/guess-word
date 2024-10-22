@@ -6,9 +6,10 @@ import { useMemo } from "react";
 import { NextGameCountdown } from "./next-game-countdown";
 import * as Dialog from "./ui/dialog";
 import { Text } from "./ui/text";
+import { ShareGame } from "./share-game";
 
 function Content() {
-	const game = useMemo(() => getGameHistory(), []);
+	const game = getGameHistory();
 	const lastWord = game.history[dayjs().format("YYYY-MM-DD")];
 
 	const { sequence, percentage } = useMemo(() => {
@@ -39,15 +40,11 @@ function Content() {
 	);
 
 	return (
-		<Dialog.Root
-			trapFocus={false}
-			open={true}
-			closeOnInteractOutside={false}
-		>
+		<Dialog.Root trapFocus={false} open={true} closeOnInteractOutside={false}>
 			<Dialog.Backdrop />
 			<Dialog.Positioner>
 				<Dialog.Content>
-					<Stack alignItems="center" p='6'>
+					<Stack alignItems="center" p="6" gap='6'>
 						<Stack gap="6" alignItems="center">
 							<Stack alignItems="center">
 								<Center px="4" bgColor="fg.muted" rounded="lg" fontSize="xs">
@@ -119,13 +116,15 @@ function Content() {
 							})}
 						</Stack>
 
-						<Stack
+						<Flex
 							alignItems="center"
 							w="full"
+							gap="6"
 							smDown={{ flexDirection: "column", gap: "8" }}
 						>
 							<NextGameCountdown />
-						</Stack>
+							<ShareGame feedback={lastWord?.context.feedback} />
+						</Flex>
 					</Stack>
 				</Dialog.Content>
 			</Dialog.Positioner>

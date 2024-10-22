@@ -24,9 +24,9 @@ export default async function RootLayout({
 	});
 
 	return (
-		<html lang="pt-BR">
+		<html lang="pt-BR" suppressHydrationWarning>
 			<body className={`${body.className}`}>
-				<Toaster />
+				<Toaster position="top-center" theme="system" />
 				<Providers targetWord={game?.word || "casas"}>{children}</Providers>
 			</body>
 		</html>

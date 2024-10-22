@@ -30,6 +30,9 @@ export const key = defineRecipe({
 		fontWeight: "bold",
 		textTransform: "uppercase",
 		bg: "fg.subtle",
+		_hover: {
+			bg: "fg.muted",
+		},
 		'&[data-feedback="correct"]': {
 			bg: "feedback.correct",
 		},

@@ -7,9 +7,7 @@ export const useShowInvalidWord = () => {
 
 	useEffect(() => {
 		if (gameState === "invalidWord") {
-			toast.info("A palavra não é válida", {
-				position: "top-center",
-			});
+			toast.info("A palavra não é válida");
 		}
 	}, [gameState]);
 };

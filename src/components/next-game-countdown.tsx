@@ -13,6 +13,7 @@ export function NextGameCountdown() {
 			textAlign="center"
 			alignItems="center"
 			justifyContent="center"
+			w='95%'
 		>
 			<Text fontSize="xs" fontWeight="medium">
 				PRÓXIMA PALAVRA EM
@@ -26,7 +27,7 @@ export function NextGameCountdown() {
 					className={flex({
 						fontSize: {
 							base: "3xl",
-							md: "4xl",
+							md: "5xl",
 						},
 						fontWeight: "bold",
 						lineHeight: "1",

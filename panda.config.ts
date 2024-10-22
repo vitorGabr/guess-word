@@ -10,9 +10,15 @@ export default defineConfig({
 	],
 	exclude: [],
 	jsxFramework: "react",
+	conditions: {
+		extend: {
+			dark: '.dark &, [data-theme="dark"] &',
+			light: ".light &",
+		}
+	},
 	theme: {
 		extend: {
-			tokens: {
+			semanticTokens: {
 				colors: defineColorTokens,
 			},
 		},

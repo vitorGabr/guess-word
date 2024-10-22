@@ -3,6 +3,8 @@ import { useGameActorRef, useGameSelector } from "@/lib/machine";
 import type { GameFeedback } from "@/lib/schema";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word } from "@/styled-system/recipes";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 type WordsProps = {
 	feedback: GameFeedback[][];
@@ -11,8 +13,25 @@ type WordsProps = {
 export function Words({ feedback }: WordsProps) {
 	const currentGuess = useGameSelector((state) => state.context.currentGuess);
 	const currentCol = useGameSelector((state) => state.context.currentCol);
+	const isInvalidWord = useGameSelector((state) =>
+		state.matches("invalidWord"),
+	);
+
 	const actorRef = useGameActorRef();
 	const currentRow = feedback.length;
+	const controls = useAnimation();
+	const shakeVariants = {
+		shake: {
+			x: [0, -10, 10, -10, 10, 0],
+			transition: { duration: 0.3 },
+		},
+	};
+
+	useEffect(() => {
+		if (isInvalidWord) {
+			controls.start("shake");
+		}
+	}, [isInvalidWord, controls]);
 
 	const renderCell = (i: number, j: number) => {
 		let feedbackLetter: GameFeedback | null = null;
@@ -37,13 +56,30 @@ export function Words({ feedback }: WordsProps) {
 
 	const renderRow = (i: number) => (
 		<Flex key={i} gap="2">
-			{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) => renderCell(i, j))}
+			{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) =>
+				renderCell(i, j),
+			)}
 		</Flex>
 	);
 
 	return (
 		<Stack gap="2" mx="auto" flex={1}>
-			{Array.from({ length: DEFAULTS.MAX_ATTEMPTS }).map((_, i) => renderRow(i))}
+			{Array.from({ length: DEFAULTS.MAX_ATTEMPTS }).map((_, i) => {
+				if (i === currentRow) {
+					return (
+						<motion.div
+							key={i}
+							initial="shake"
+							animate={controls}
+							variants={shakeVariants}
+						>
+							{renderRow(i)}
+						</motion.div>
+					);
+				}
+
+				return renderRow(i);
+			})}
 		</Stack>
 	);
 }

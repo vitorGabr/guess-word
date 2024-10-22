@@ -3,13 +3,13 @@
 import { GameResult } from "@/components/game-result";
 import { HowToPlay } from "@/components/how-to-play";
 import { Keyboard } from "@/components/keyboard";
+import { ToggleModeButton } from "@/components/toggle-mode-button";
 import { Heading } from "@/components/ui/heading";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
 import { useGameSelector } from "@/lib/machine";
-import { Flex, Stack, styled } from "@/styled-system/jsx";
-import { Info } from "lucide-react";
+import { Flex, Stack } from "@/styled-system/jsx";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -40,9 +40,7 @@ export default function Home() {
 				justifyContent={"space-between"}
 				alignItems={"center"}
 			>
-				<styled.button color="fg.subtle">
-					<Info />
-				</styled.button>
+				<HowToPlay />
 				<Heading
 					as={"h1"}
 					fontSize={"2xl"}
@@ -51,15 +49,12 @@ export default function Home() {
 				>
 					Adivinhe a palavra
 				</Heading>
-				<styled.button color="fg.subtle">
-					<Info />
-				</styled.button>
+				<ToggleModeButton />
 			</Flex>
 
 			<Words feedback={feedback} />
 			<Keyboard feedback={feedback} />
 			<GameResult />
-			<HowToPlay />
 		</Stack>
 	);
 }

@@ -2,51 +2,53 @@ import { saveGameForToday } from "@/lib/utils";
 import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
-import type { GameFeedback, GameSchema } from "./schema";
+import type { GameSchema } from "./schema";
 import { DEFAULTS } from "@/constants/default";
+import { calculateFeedback } from "./calculate-feedback";
+
+type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
+type BackspaceEvent = { type: "BACKSPACE" };
+type EditLetterPositionEvent = { type: "EDIT_LETTER_POSITION"; col: number };
+type SubmitGuessEvent = { type: "SUBMIT_GUESS" };
+type ArrowChangeEvent = { type: "ARROW_CHANGE"; direction: "left" | "right" };
+
+type GameEvent =
+	| InputLetterEvent
+	| BackspaceEvent
+	| EditLetterPositionEvent
+	| SubmitGuessEvent
+	| ArrowChangeEvent;
+
+const validWords = new Set(dict);
 
 export const gameMachine = setup({
 	types: {
 		context: {} as GameSchema["context"],
-		events: {} as
-			| { type: "INPUT_LETTER"; letter: string }
-			| { type: "BACKSPACE" }
-			| { type: "EDIT_LETTER_POSITION"; col: number }
-			| { type: "SUBMIT_GUESS" }
-			| { type: "ARROW_CHANGE"; direction: "left" | "right" },
+		events: {} as GameEvent,
 	},
-	guards: {},
+	guards: {
+		submitGuess: ({ context }) => {
+			const { currentGuess, targetWord } = context;
+			return currentGuess.join("").length === targetWord.length;
+		},
+		isInvalidWord: ({ context }) => {
+			const { currentGuess } = context;
+			return !validWords.has(currentGuess.join(""));
+		},
+		isWon: ({ context }) => {
+			const { currentGuess, targetWord } = context;
+			return currentGuess.join("") === targetWord;
+		},
+		isLost: ({ context }) => {
+			const { feedback } = context;
+			const currentRow = feedback.length + 1;
+			return currentRow >= DEFAULTS.MAX_ATTEMPTS;
+		},
+	},
 	actions: {
 		giveFeedback: assign(({ context }) => {
 			const { currentGuess, targetWord } = context;
-
-			const splitWord = targetWord.split("");
-			const feedback: GameFeedback[] = [];
-
-			const letterCountMap = splitWord.reduce<Record<string, number>>(
-				(acc, letter) => {
-					acc[letter] = (acc[letter] || 0) + 1;
-					return acc;
-				},
-				{},
-			);
-
-			currentGuess.forEach((letter, index) => {
-				const correct = letter === splitWord[index];
-				const letterCountValue = letterCountMap[letter] || 0;
-				feedback[index] = {
-					letter,
-					status: "absent",
-				};
-				if (correct || letterCountValue) {
-					const isCorrect = letter === splitWord[index];
-					letterCountMap[letter]--;
-					feedback[index] = {
-						letter,
-						status: isCorrect ? "correct" : "present",
-					};
-				}
-			});
+			const feedback = calculateFeedback(currentGuess, targetWord);
 
 			return {
 				feedback: [...context.feedback, feedback],
@@ -54,6 +56,15 @@ export const gameMachine = setup({
 				currentGuess: [],
 			};
 		}),
+		onGetSnapshot: ({ context }, params?: { value: "lost" | "won" }) => {
+			saveGameForToday({
+				context,
+				...(params?.value && {
+					value: params.value,
+					status: "done",
+				}),
+			});
+		},
 	},
 }).createMachine({
 	context: ({ input }) => {
@@ -104,11 +115,6 @@ export const gameMachine = setup({
 						};
 					}),
 				},
-				SUBMIT_GUESS: {
-					target: "checking",
-					guard: ({ context }) =>
-						context.currentGuess.join("").length === context.targetWord.length,
-				},
 				ARROW_CHANGE: {
 					actions: assign(({ context, event }) => {
 						const { direction } = event;
@@ -116,12 +122,13 @@ export const gameMachine = setup({
 						const newCol =
 							direction === "left" ? currentCol - 1 : currentCol + 1;
 						return {
-							currentCol: Math.min(
-								Math.max(0, newCol),
-								DEFAULTS.MAX_COL,
-							),
+							currentCol: Math.min(Math.max(0, newCol), DEFAULTS.MAX_COL),
 						};
 					}),
+				},
+				SUBMIT_GUESS: {
+					target: "checking",
+					guard: "submitGuess",
 				},
 			},
 		},
@@ -129,10 +136,7 @@ export const gameMachine = setup({
 			always: [
 				{
 					target: "won",
-					guard: ({ context }) => {
-						const { currentGuess, targetWord } = context;
-						return currentGuess.join("") === targetWord;
-					},
+					guard: "isWon",
 					actions: [
 						{
 							type: "giveFeedback",
@@ -141,21 +145,14 @@ export const gameMachine = setup({
 				},
 				{
 					target: "lost",
-					guard: ({ context }) => {
-						const { feedback } = context;
-						const currentRow = feedback.length + 1;
-						return currentRow >= DEFAULTS.MAX_ATTEMPTS;
-					},
+					guard: "isLost",
 					actions: {
 						type: "giveFeedback",
 					},
 				},
 				{
 					target: "invalidWord",
-					guard: ({ context }) => {
-						const { currentGuess } = context;
-						return !dict.includes(currentGuess.join(""));
-					},
+					guard: "isInvalidWord",
 				},
 				{
 					target: "playing",
@@ -163,10 +160,8 @@ export const gameMachine = setup({
 						{
 							type: "giveFeedback",
 						},
-						({ context }) => {
-							saveGameForToday({
-								context,
-							});
+						{
+							type: "onGetSnapshot",
 						},
 					],
 				},
@@ -174,29 +169,23 @@ export const gameMachine = setup({
 		},
 		invalidWord: {
 			after: {
-				50: {
+				1000: {
 					target: "playing",
 				},
 			},
 		},
 		won: {
 			type: "final",
-			entry: ({ context }) => {
-				saveGameForToday({
-					context: context,
-					value: "won",
-					status: "done",
-				});
+			entry: {
+				type: "onGetSnapshot",
+				params: { value: "won" },
 			},
 		},
 		lost: {
 			type: "final",
-			entry: ({ context }) => {
-				saveGameForToday({
-					context: context,
-					value: "lost",
-					status: "done",
-				});
+			entry: {
+				type: "onGetSnapshot",
+				params: { value: "lost" },
 			},
 		},
 	},
