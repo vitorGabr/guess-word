@@ -6,7 +6,10 @@ export const loadGameForToday = () => {
 		const today = dayjs().format("YYYY-MM-DD");
 		const savedGame = JSON.parse(localStorage.getItem("data") || "{}");
 		const parsedGame = gameSchema.parse(savedGame);
-		return parsedGame[today];
+		if(today in parsedGame){
+			return parsedGame[today]
+		}
+		throw new Error('No game found for today')
 	} catch (error) {
 		return null;
 	}

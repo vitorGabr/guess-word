@@ -7,6 +7,7 @@ import { NextGameCountdown } from "./next-game-countdown";
 import { ShareGame } from "./share-game";
 import * as Dialog from "./ui/dialog";
 import { Text } from "./ui/text";
+import { DEFAULTS } from "@/constants/default";
 
 function Content() {
 	const game = getGameHistory();
@@ -90,8 +91,12 @@ function Content() {
 							<Text fontSize="md" fontWeight="semibold">
 								Distribuição das tentativas
 							</Text>
-							{lastWord?.context.feedback.map((item, index) => {
-								const win = item.every((l) => l.status === "correct");
+							{new Array(DEFAULTS.MAX_ATTEMPTS).fill(null).map((_, index) => {
+								const item = lastWord?.context.feedback[index];
+								const win = item
+									? item.every((l) => l.status === "correct")
+									: false;
+
 								return (
 									<Flex key={index} alignItems="center" w="full" gap="3">
 										<Text as="span">{index + 1}</Text>

@@ -26,6 +26,12 @@ function normalizeWord(word: string) {
 		.replace(/[\u0300-\u036f]/g, "");
 }
 
+function checkWordInDict(word: string) {
+	return dict.find(
+		(dictWord) => normalizeWord(dictWord) === normalizeWord(word),
+	);
+}
+
 export const gameMachine = setup({
 	types: {
 		context: {} as GameSchema["context"],
@@ -38,17 +44,13 @@ export const gameMachine = setup({
 		},
 		isInvalidWord: ({ context }) => {
 			const { currentGuess } = context;
-			return !dict.find(
-				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
-			);
+			return !checkWordInDict(currentGuess.join(""));
 		},
 		isWon: ({ context }) => {
 			const { currentGuess, targetWord } = context;
-			const findWordInDict = dict.find(
-				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
-			)
-			
-			if(!findWordInDict) return false;
+			const findWordInDict = checkWordInDict(currentGuess.join(""));
+
+			if (!findWordInDict) return false;
 			return findWordInDict === targetWord;
 		},
 		isLost: ({ context }) => {
@@ -60,10 +62,8 @@ export const gameMachine = setup({
 	actions: {
 		giveFeedback: assign(({ context }) => {
 			const { currentGuess, targetWord } = context;
-			const findWordInDict = dict.find(
-				(word) => normalizeWord(word) === normalizeWord(currentGuess.join("")),
-			) || '';
-			const feedback = calculateFeedback(findWordInDict.split(''), targetWord);
+			const findWordInDict = checkWordInDict(currentGuess.join("")) ?? "";
+			const feedback = calculateFeedback(findWordInDict.split(""), targetWord);
 
 			return {
 				feedback: [...context.feedback, feedback],
