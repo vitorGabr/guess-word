@@ -1,4 +1,4 @@
-import { validateAuth } from "@/lib/validate-auth";
+import { validateAuth } from "@/lib/auth/validate-auth";
 import { revalidatePath } from "next/cache";
 import type { NextRequest } from "next/server";
 export const dynamic = "force-dynamic";

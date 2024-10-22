@@ -1,6 +1,6 @@
 "use client";
 
-import { GameResult } from "@/components/game-result";
+import { GameResult } from "@/components/game/game-result";
 import { HowToPlay } from "@/components/how-to-play";
 import { Keyboard } from "@/components/keyboard";
 import { ToggleModeButton } from "@/components/toggle-mode-button";
@@ -8,7 +8,7 @@ import { Heading } from "@/components/ui";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
 import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
-import { useGameSelector } from "@/lib/machine";
+import { useGameSelector } from "@/lib/state/machine";
 import { Container, Flex } from "@/styled-system/jsx";
 import { stack } from "@/styled-system/patterns";
 import { useEffect, useState } from "react";

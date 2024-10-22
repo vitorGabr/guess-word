@@ -1,4 +1,4 @@
-import type { GameFeedback } from "@/lib/schema";
+import type { GameFeedback } from "@/lib/db/schema";
 
 export const KEYS = [
 	["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],

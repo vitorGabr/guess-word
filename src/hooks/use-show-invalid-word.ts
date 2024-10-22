@@ -1,4 +1,4 @@
-import { useGameSelector } from "@/lib/machine";
+import { useGameSelector } from "@/lib/state/machine";
 import { useEffect } from "react";
 import { toast } from "sonner";
 

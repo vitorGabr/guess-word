@@ -2,7 +2,7 @@ import { Stack } from "@/styled-system/jsx";
 import { flex } from "@/styled-system/patterns";
 import { Timer } from "@ark-ui/react/timer";
 import dayjs from "dayjs";
-import { Text } from "./ui";
+import { Text } from "../ui";
 
 export function NextGameCountdown() {
 	const diff = dayjs().endOf("day").diff(dayjs(), "milliseconds");

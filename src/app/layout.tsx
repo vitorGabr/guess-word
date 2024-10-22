@@ -1,7 +1,7 @@
-import { Providers } from "@/components/providers";
+import { Providers } from "@/components/layout/providers";
 import type { Metadata } from "next";
 import "./globals.css";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/db/prisma";
 import { Roboto_Mono } from "next/font/google";
 
 export const revalidate = false;

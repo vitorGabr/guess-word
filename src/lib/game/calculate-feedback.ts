@@ -1,4 +1,4 @@
-import type { GameFeedback } from "./schema";
+import type { GameFeedback } from "../db/schema";
 
 export function calculateFeedback(currentGuess: string[], targetWord: string) {
 	const splitWord = targetWord.split("");

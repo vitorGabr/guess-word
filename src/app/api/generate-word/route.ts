@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma";
-import { validateAuth } from "@/lib/validate-auth";
+import prisma from "@/lib/db/prisma";
+import { validateAuth } from "@/lib/auth/validate-auth";
 import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import dayjs from "dayjs";
@@ -81,7 +81,6 @@ export async function GET(request: NextRequest) {
 
 		return Response.json(transformedWords);
 	} catch (error) {
-		console.error("Error in word game generation:", error);
 		return Response.json(
 			{ error: error instanceof Error ? error.message : "Unknown error" },
 			{ status: 500 },

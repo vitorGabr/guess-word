@@ -1,10 +1,10 @@
 import { DEFAULTS } from "@/constants/default";
-import { saveGameForToday } from "@/lib/persist-data";
 import { createActorContext } from "@xstate/react";
 import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
-import { calculateFeedback } from "./calculate-feedback";
-import type { GameSchema } from "./schema";
+import { calculateFeedback } from "../game/calculate-feedback";
+import type { GameSchema } from "../db/schema";
+import { saveGameForToday } from "../db/persist-data";
 
 type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
 type BackspaceEvent = { type: "BACKSPACE" };

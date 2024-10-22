@@ -3,8 +3,8 @@ import {
 	loadGameForToday,
 	saveGameForToday,
 	getGameHistory,
-} from "../src/lib/persist-data";
-import type { GameSchema } from "../src/lib/schema";
+} from "../src/lib/db/persist-data";
+import type { GameSchema } from "../src/lib/db/schema";
 
 vi.mock("dayjs", () => ({
 	default: () => ({

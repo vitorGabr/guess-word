@@ -1,10 +1,10 @@
 "use client";
 
-import { GameProvider } from "@/lib/machine";
-import { loadGameForToday } from "@/lib/persist-data";
+import { GameProvider } from "@/lib/state/machine";
 import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
-import { Toaster } from "./ui";
+import { loadGameForToday } from "@/lib/db/persist-data";
+import { Toaster } from "../toaster";
 
 export function Providers({
 	children,

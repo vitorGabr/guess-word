@@ -1,12 +1,12 @@
-import { useGameSelector } from "@/lib/machine";
-import { getGameHistory } from "@/lib/persist-data";
+import { useGameSelector } from "@/lib/state/machine";
 import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
 import { useMemo } from "react";
 import { NextGameCountdown } from "./next-game-countdown";
 import { ShareGame } from "./share-game";
-import { Text, Dialog } from "./ui";
+import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
+import { getGameHistory } from "@/lib/db/persist-data";
 
 function Content() {
 	const game = getGameHistory();

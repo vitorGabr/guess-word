@@ -1,4 +1,4 @@
-import type { GameFeedback } from "@/lib/schema";
+import type { GameFeedback } from "@/lib/db/schema";
 import { css, cx } from "@/styled-system/css";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word as wordRecipe } from "@/styled-system/recipes";
@@ -45,7 +45,7 @@ export function HowToPlay() {
 							py="8"
 							gap="6"
 							alignItems="flex-start"
-							maxW={"md"}
+							maxW={"lg"}
 							h="90vh"
 							overflowY={"auto"}
 							scrollbarWidth={"thin"}

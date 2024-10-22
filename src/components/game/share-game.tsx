@@ -1,4 +1,4 @@
-import type { GameFeedback } from "@/lib/schema";
+import type { GameFeedback } from "@/lib/db/schema";
 import { Flex, styled } from "@/styled-system/jsx";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";

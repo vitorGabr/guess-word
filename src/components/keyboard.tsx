@@ -1,6 +1,6 @@
 import { KEYS, WEIGHT_STATUS } from "@/constants/keyboard";
-import { useGameActorRef } from "@/lib/machine";
-import type { GameFeedback } from "@/lib/schema";
+import { useGameActorRef } from "@/lib/state/machine";
+import type { GameFeedback } from "@/lib/db/schema";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { key } from "@/styled-system/recipes";
 import { useCallback, useMemo } from "react";
