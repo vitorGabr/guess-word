@@ -3,10 +3,18 @@ import { google } from "@ai-sdk/google";
 import type { Prisma } from "@prisma/client";
 import { generateObject } from "ai";
 import dayjs from "dayjs";
+import type { NextRequest } from "next/server";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
-export async function GET() {
+export async function GET(request: NextRequest) {
+	const authHeader = request.headers.get("authorization");
+	if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+		return new Response("Unauthorized", {
+			status: 401,
+		});
+	}
+
 	try {
 		const generatedWords = await generateObject({
 			model: google("gemini-1.5-flash-latest"),
