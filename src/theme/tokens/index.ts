@@ -3,6 +3,6 @@ import { defineColorTokens } from "./colors";
 import { defineRadiiTokens } from "./radii";
 
 export const createSemanticTokens = defineSemanticTokens({
-    colors: defineColorTokens,
-    radii: defineRadiiTokens,
-})
+	colors: defineColorTokens,
+	radii: defineRadiiTokens,
+});

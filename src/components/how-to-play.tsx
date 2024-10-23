@@ -4,7 +4,7 @@ import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word as wordRecipe } from "@/styled-system/recipes";
 import { Info, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Heading, Dialog, Icon } from "./ui";
+import { Dialog, Heading, Icon } from "./ui";
 import { Text } from "./ui/text";
 
 export function HowToPlay() {
@@ -51,10 +51,14 @@ export function HowToPlay() {
 							scrollbarWidth={"thin"}
 						>
 							<Stack gap="0">
-								<Heading as="h1" fontSize={["2xl","3xl","3xl"]} fontWeight="bold">
+								<Heading
+									as="h1"
+									fontSize={["2xl", "3xl", "3xl"]}
+									fontWeight="bold"
+								>
 									Como jogar
 								</Heading>
-								<Text fontSize={["sm","lg","lg"]} fontWeight="light">
+								<Text fontSize={["sm", "lg", "lg"]} fontWeight="light">
 									Adivinhe a palavra do dia em 6 tentativas.
 								</Text>
 							</Stack>

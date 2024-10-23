@@ -1,10 +1,10 @@
 import { DEFAULTS } from "@/constants/default";
 import { createActorContext } from "@xstate/react";
 import { assign, setup } from "xstate";
-import { calculateFeedback } from "../game/calculate-feedback";
-import type { GameSchema } from "../db/schema";
-import { isWordInDictionary } from "../game/check-word-in-dict";
 import { persistData } from "../db/persist-data";
+import type { GameSchema } from "../db/schema";
+import { calculateFeedback } from "../game/calculate-feedback";
+import { isWordInDictionary } from "../game/check-word-in-dict";
 
 type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
 type BackspaceEvent = { type: "BACKSPACE" };
@@ -18,7 +18,6 @@ type GameEvent =
 	| EditLetterPositionEvent
 	| SubmitGuessEvent
 	| ArrowChangeEvent;
-
 
 export const gameMachine = setup({
 	types: {

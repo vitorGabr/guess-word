@@ -3,7 +3,7 @@
 import { GameResult } from "@/components/game/game-result";
 import { HowToPlay } from "@/components/how-to-play";
 import { Keyboard } from "@/components/keyboard";
-import { ToggleModeButton } from "@/components/toggle-mode-button";
+import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { Heading } from "@/components/ui";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
@@ -50,7 +50,7 @@ export default function Home() {
 					>
 						Adivinhe a palavra
 					</Heading>
-					<ToggleModeButton />
+					<ThemeToggleButton />
 				</Flex>
 			</Container>
 

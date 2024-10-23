@@ -4,7 +4,7 @@ import { Timer } from "@ark-ui/react/timer";
 import dayjs from "dayjs";
 import { Text } from "../ui";
 
-export function NextGameCountdown() {
+export function GameCountdown() {
 	const diff = dayjs().endOf("day").diff(dayjs(), "milliseconds");
 
 	return (

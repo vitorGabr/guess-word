@@ -1,6 +1,6 @@
 import { DEFAULTS } from "@/constants/default";
-import { useGameActorRef, useGameSelector } from "@/lib/state/machine";
 import type { GameFeedback } from "@/lib/db/schema";
+import { useGameActorRef, useGameSelector } from "@/lib/state/machine";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word } from "@/styled-system/recipes";
 import { motion, useAnimation } from "framer-motion";

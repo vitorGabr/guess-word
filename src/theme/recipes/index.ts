@@ -4,16 +4,16 @@ import type {
 	SlotRecipeConfig,
 } from "@pandacss/dev";
 import { dialog } from "./dialog";
+import { icon } from "./icon";
 import { key } from "./key";
 import { text } from "./text";
 import { word } from "./word";
-import { icon } from "./icon";
 
 export const recipes: Record<string, RecipeConfig<RecipeVariantRecord>> = {
 	key,
 	word,
 	text,
-	icon
+	icon,
 };
 
 export const slotRecipes: Record<string, SlotRecipeConfig> = {

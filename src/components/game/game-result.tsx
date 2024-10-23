@@ -1,43 +1,30 @@
 import { useGameSelector } from "@/lib/state/machine";
 import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
-import { useMemo } from "react";
-import { NextGameCountdown } from "./next-game-countdown";
+import { Suspense } from "react";
+import { GameCountdown } from "./game-countdown";
 import { ShareGame } from "./share-game";
 import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
 import { persistData } from "@/lib/db/persist-data";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { calculateSequence } from "@/lib/game/calculate-sequence";
 
 function Content() {
-	const game = persistData.getGameHistory();
+	const { data: game } = useSuspenseQuery({
+		queryKey: ["history"],
+		queryFn: () => persistData.getGameHistory(),
+	});
+
 	const lastWord = game.history[dayjs().format("YYYY-MM-DD")];
+	const { sequence, percentage } = calculateSequence(game);
 
-	const { sequence, percentage } = useMemo(() => {
-		const sequence = Object.values(history).reduce(
-			(acc, item) => {
-				if (item.value === "won") {
-					acc.current += 1;
-					acc.best = Math.max(acc.current, acc.best);
-				} else {
-					acc.current = 0;
-				}
-				return acc;
-			},
-			{ current: 0, best: 0 },
-		);
-
-		const percentage = history ? (game.won / game.total) * 100 : 0;
-		return { sequence, percentage };
-	}, [history]);
-
-	const data = useMemo(
-		() => [
-			{ label: "jogos", value: Object.keys(history).length },
-			{ label: "de vitórias", value: `${percentage}%` },
-			{ label: "sequência de vitórias", value: sequence.best },
-		],
-		[history, percentage, sequence.best],
-	);
+	const data = [
+		{ label: "jogos", value: Object.keys(game.history).length },
+		{ label: "de vitórias", value: `${percentage}%` },
+		{ label: "sequência de vitórias", value: sequence.best },
+	];
+	const attemptsArray = new Array(DEFAULTS.MAX_ATTEMPTS).fill(null);
 
 	return (
 		<Dialog.Root trapFocus={false} open={true} closeOnInteractOutside={false}>
@@ -97,7 +84,7 @@ function Content() {
 							<Text fontSize="md" fontWeight="semibold">
 								Distribuição das tentativas
 							</Text>
-							{new Array(DEFAULTS.MAX_ATTEMPTS).fill(null).map((_, index) => {
+							{attemptsArray.map((_, index) => {
 								const item = lastWord?.context.feedback[index];
 								const win = item
 									? item.every((l) => l.status === "correct")
@@ -133,7 +120,7 @@ function Content() {
 							gap="6"
 							smDown={{ flexDirection: "column", gap: "8" }}
 						>
-							<NextGameCountdown />
+							<GameCountdown />
 							<ShareGame feedback={lastWord?.context.feedback} />
 						</Flex>
 					</Stack>
@@ -145,10 +132,6 @@ function Content() {
 
 export function GameResult() {
 	const status = useGameSelector((state) => state.status);
-
-	if (status === "done") {
-		return <Content />;
-	}
-
-	return null;
+	if (status !== "done") return null;
+	return <Content />
 }

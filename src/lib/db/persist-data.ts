@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
+import { LocalStorageAdapter } from "./adapters";
 import type { StorageAdapter } from "./interfaces";
 import { type GameSchema, gameSchema } from "./schema";
-import { LocalStorageAdapter } from "./adapters";
 
 class PersistData {
 	private storage: StorageAdapter;
@@ -11,10 +11,10 @@ class PersistData {
 		this.storage = storage;
 	}
 
-	loadGameForToday() {
+	async loadGameForToday() {
 		try {
 			const today = dayjs().format("YYYY-MM-DD");
-			const savedGameStr = this.storage.getItem(this.KEY);
+			const savedGameStr = await this.storage.getItem(this.KEY);
 			const savedGame = savedGameStr ? JSON.parse(savedGameStr) : {};
 			const parsedGame = gameSchema.parse(savedGame);
 
@@ -27,15 +27,15 @@ class PersistData {
 		}
 	}
 
-	saveGameForToday(
+	async saveGameForToday(
 		data: Pick<GameSchema, "context" | "value" | "status">,
 	) {
 		try {
 			const today = dayjs().format("YYYY-MM-DD");
-			const savedGameStr = this.storage.getItem(this.KEY);
+			const savedGameStr = await this.storage.getItem(this.KEY);
 			const savedGame = savedGameStr ? JSON.parse(savedGameStr) : {};
 
-			this.storage.setItem(
+			await this.storage.setItem(
 				this.KEY,
 				JSON.stringify({
 					...savedGame,
@@ -47,9 +47,9 @@ class PersistData {
 		}
 	}
 
-	getGameHistory() {
+	async getGameHistory() {
 		try {
-			const savedGameStr = this.storage.getItem(this.KEY);
+			const savedGameStr = await this.storage.getItem(this.KEY);
 			const savedGame = savedGameStr ? JSON.parse(savedGameStr) : {};
 			const parsedGame = gameSchema.parse(savedGame);
 

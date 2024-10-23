@@ -1,5 +1,5 @@
-import prisma from "@/lib/db/prisma";
 import { validateAuth } from "@/lib/auth/validate-auth";
+import prisma from "@/lib/db/prisma";
 import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import dayjs from "dayjs";
@@ -14,8 +14,7 @@ type WordWithTargetDate = {
 const REQUIRED_WORD_LENGTH = 5;
 const REQUIRED_WORDS_COUNT = 7;
 
-const wordSchema = z.string().length(REQUIRED_WORD_LENGTH);
-const wordsArraySchema = z.array(wordSchema).length(REQUIRED_WORDS_COUNT);
+const wordsArraySchema = z.array(z.string());
 
 const generateWordsPrompt = (): string => {
 	return `
