@@ -1,6 +1,6 @@
 # 🧠 Desvende o Enigma das Palavras! 
 
-Prepare-se para uma experiência desafiadora e viciante que vai testar seus conhecimentos linguísticos e colocar sua mente para trabalhar! **[Esse Projeto]** é um clone do Wordle reinventado, combinando a jogabilidade clássica que você ama com uma pitada de magia tecnológica. ✨
+Prepare-se para uma experiência desafiadora e viciante que vai testar seus conhecimentos linguísticos e colocar sua mente para trabalhar! **Esse Projeto** é um clone do Wordle reinventado, combinando a jogabilidade clássica que você ama com uma pitada de magia tecnológica. ✨
 
 ## Pronto para Desvendar o Desafio? 🤔
 
@@ -8,7 +8,7 @@ Prepare-se para uma experiência desafiadora e viciante que vai testar seus conh
 
 ## Uma Jornada Através do Mundo das Palavras 🌎
 
-[Nome do Seu Jogo] não é apenas um jogo, é uma aventura linguística! A cada partida, você terá a oportunidade de:
+Esse Projeto não é apenas um jogo, é uma aventura linguística! A cada partida, você terá a oportunidade de:
 
 * **Exercitar seu cérebro:** Desvende palavras secretas e expanda seu vocabulário de forma divertida e envolvente.
 * **Desafiar seus limites:**  Teste suas habilidades em diferentes níveis de dificuldade e veja até onde você consegue chegar.
@@ -16,7 +16,7 @@ Prepare-se para uma experiência desafiadora e viciante que vai testar seus conh
 
 ## Tecnologia de Ponta Impulsionando a Diversão 🚀
 
-Por trás da interface elegante e intuitiva, [Nome do Seu Jogo] é impulsionado por um conjunto de tecnologias de ponta:
+Por trás da interface elegante e intuitiva, Esse projeto é impulsionado por um conjunto de tecnologias de ponta:
 
 * **Next.js 15:**  A estrutura poderosa e versátil que garante performance e escalabilidade, tornando cada interação suave como seda.
 * **TypeScript:** Tipagem estática para um código mais robusto e livre de bugs, porque aqui a diversão vem sem interrupções! 
