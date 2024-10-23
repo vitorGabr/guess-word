@@ -26,6 +26,16 @@ export function Words({ feedback }: WordsProps) {
 			transition: { duration: 0.3 },
 		},
 	};
+	const flipVariants = {
+		hidden: { rotateX: 90 },
+		visible: (i: number) => ({
+			rotateX: 0,
+			transition: {
+				delay: i * 0.2, // Delay para cada célula
+				duration: 0.5,
+			},
+		}),
+	};
 
 	useEffect(() => {
 		if (isInvalidWord) {
@@ -39,6 +49,7 @@ export function Words({ feedback }: WordsProps) {
 		if (currentRow === i && currentGuess[j]) {
 			feedbackLetter = { letter: currentGuess[j] };
 		}
+
 		return (
 			<styled.button
 				key={`${i}-${j}`}
@@ -56,9 +67,9 @@ export function Words({ feedback }: WordsProps) {
 
 	const renderRow = (i: number) => (
 		<Flex key={i} gap="2">
-			{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) =>
-				renderCell(i, j),
-			)}
+			{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) => {
+				return renderCell(i, j);
+			})}
 		</Flex>
 	);
 

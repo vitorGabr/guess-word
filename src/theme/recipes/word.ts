@@ -10,7 +10,7 @@ export const word = defineRecipe({
 		height: "12",
 		border: "2px solid",
 		borderColor: "fg.subtle",
-		rounded: "xl",
+		rounded: "l3",
 		color: "fg.default",
 		fontSize: "2xl",
 		fontWeight: "bold",

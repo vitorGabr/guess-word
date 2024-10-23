@@ -4,12 +4,14 @@ export function calculateFeedback(currentGuess: string[], targetWord: string) {
 	const splitWord = targetWord.split("");
 	const feedback: GameFeedback[] = [];
 
-	const letterCountMap = splitWord.reduce<Record<string, number>>(
-		(acc, letter) => {
-			acc[letter] = (acc[letter] || 0) + 1;
+	const letterCountMap = splitWord.reduce(
+		(acc, letter, index) => {
+			if (currentGuess[index] !== letter) {
+				acc[letter] = (acc[letter] || 0) + 1;
+			}
 			return acc;
 		},
-		{},
+		{} as Record<string, number>,
 	);
 
 	currentGuess.forEach((letter, index) => {
@@ -19,7 +21,7 @@ export function calculateFeedback(currentGuess: string[], targetWord: string) {
 			letter,
 			status: "absent",
 		};
-		if (correct || letterCountValue) {
+		if (correct || letterCountValue > 0) {
 			const isCorrect = letter === splitWord[index];
 			letterCountMap[letter]--;
 			feedback[index] = {

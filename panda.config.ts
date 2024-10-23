@@ -1,5 +1,5 @@
 import { recipes, slotRecipes } from "@/theme/recipes";
-import { defineColorTokens } from "@/theme/tokens/colors";
+import { createSemanticTokens } from "@/theme/tokens";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
@@ -18,9 +18,7 @@ export default defineConfig({
 	},
 	theme: {
 		extend: {
-			semanticTokens: {
-				colors: defineColorTokens,
-			},
+			semanticTokens: createSemanticTokens,
 		},
 		recipes,
 		slotRecipes

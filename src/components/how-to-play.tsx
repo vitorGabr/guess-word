@@ -4,7 +4,7 @@ import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word as wordRecipe } from "@/styled-system/recipes";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Heading, Dialog } from "./ui";
+import { Heading, Dialog, Icon } from "./ui";
 import { Text } from "./ui/text";
 
 export function HowToPlay() {
@@ -25,12 +25,13 @@ export function HowToPlay() {
 	return (
 		<>
 			<styled.button
-				color="fg.subtle"
 				onClick={() => setIsOpen(true)}
 				cursor={"pointer"}
 				aria-label="Botão de instruções de como jogar"
 			>
-				<Info />
+				<Icon color="fg.subtle">
+					<Info />
+				</Icon>
 			</styled.button>
 			<Dialog.Root
 				trapFocus={false}

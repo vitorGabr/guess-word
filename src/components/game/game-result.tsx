@@ -47,7 +47,7 @@ function Content() {
 					<Stack alignItems="center" p="6" gap="6">
 						<Stack gap="6" alignItems="center">
 							<Stack alignItems="center">
-								<Center px="4" bgColor="fg.muted" rounded="lg" fontSize="xs">
+								<Center px="4" bgColor="fg.muted" rounded="l3" fontSize="xs">
 									<Text>
 										Palavra certa:
 										<Text as="span" fontSize="sm" fontWeight="bold">

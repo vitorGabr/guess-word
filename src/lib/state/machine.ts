@@ -1,10 +1,10 @@
 import { DEFAULTS } from "@/constants/default";
 import { createActorContext } from "@xstate/react";
-import dict from "public/_static/dicionario.json";
 import { assign, setup } from "xstate";
 import { calculateFeedback } from "../game/calculate-feedback";
 import type { GameSchema } from "../db/schema";
 import { saveGameForToday } from "../db/persist-data";
+import { isWordInDictionary } from "../game/check-word-in-dict";
 
 type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
 type BackspaceEvent = { type: "BACKSPACE" };
@@ -19,18 +19,6 @@ type GameEvent =
 	| SubmitGuessEvent
 	| ArrowChangeEvent;
 
-function normalizeWord(word: string) {
-	return word
-		.toLowerCase()
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "");
-}
-
-function checkWordInDict(word: string) {
-	return dict.find(
-		(dictWord) => normalizeWord(dictWord) === normalizeWord(word),
-	);
-}
 
 export const gameMachine = setup({
 	types: {
@@ -44,11 +32,11 @@ export const gameMachine = setup({
 		},
 		isInvalidWord: ({ context }) => {
 			const { currentGuess } = context;
-			return !checkWordInDict(currentGuess.join(""));
+			return !isWordInDictionary(currentGuess);
 		},
 		isWon: ({ context }) => {
 			const { currentGuess, targetWord } = context;
-			const findWordInDict = checkWordInDict(currentGuess.join(""));
+			const findWordInDict = isWordInDictionary(currentGuess);
 
 			if (!findWordInDict) return false;
 			return findWordInDict === targetWord;
@@ -62,7 +50,7 @@ export const gameMachine = setup({
 	actions: {
 		giveFeedback: assign(({ context }) => {
 			const { currentGuess, targetWord } = context;
-			const findWordInDict = checkWordInDict(currentGuess.join("")) ?? "";
+			const findWordInDict = isWordInDictionary(currentGuess) ?? "";
 			const feedback = calculateFeedback(findWordInDict.split(""), targetWord);
 
 			return {
