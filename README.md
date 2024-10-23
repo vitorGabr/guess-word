@@ -1,6 +1,6 @@
-# 🧠 Desvende o Enigma das Palavras com [Nome do Seu Jogo]! 
+# 🧠 Desvende o Enigma das Palavras! 
 
-Prepare-se para uma experiência desafiadora e viciante que vai testar seus conhecimentos linguísticos e colocar sua mente para trabalhar! **[Nome do Seu Jogo]** é um clone do Wordle reinventado, combinando a jogabilidade clássica que você ama com uma pitada de magia tecnológica. ✨
+Prepare-se para uma experiência desafiadora e viciante que vai testar seus conhecimentos linguísticos e colocar sua mente para trabalhar! **[Esse Projeto]** é um clone do Wordle reinventado, combinando a jogabilidade clássica que você ama com uma pitada de magia tecnológica. ✨
 
 ## Pronto para Desvendar o Desafio? 🤔
 
@@ -29,12 +29,12 @@ Por trás da interface elegante e intuitiva, [Nome do Seu Jogo] é impulsionado 
 
 ## Junte-se à Comunidade de Desenvolvedores! 💻
 
-[Nome do Seu Jogo] é um projeto de código aberto e adoraríamos ter você conosco nesta jornada! 
+É um projeto de código aberto e adoraríamos ter você conosco nesta jornada! 
 
 * **Contribua com novas funcionalidades:**  Compartilhe suas ideias e ajude-nos a tornar o jogo ainda mais incrível!
 * **Aperfeiçoe suas habilidades:** Mergulhe no código-fonte e aprenda com desenvolvedores experientes.
 * **Faça parte da comunidade:** Junte-se a outros entusiastas por jogos de palavras e desenvolvimento web.
 
-## Experimente [Nome do Seu Jogo] Hoje Mesmo! 🎉
+## Experimente Hoje Mesmo! 🎉
 
 [Jogar](https://guess-word-blush.vercel.app/)
