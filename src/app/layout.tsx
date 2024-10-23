@@ -9,7 +9,10 @@ export const metadata: Metadata = {
 	title: "Adivinhe a palavra",
 	description: "Jogo de adivinhação de palavras",
 };
-const body = Roboto_Mono({ subsets: ["latin"], variable: "--global-font-body" });
+const body = Roboto_Mono({
+	subsets: ["latin"],
+	variable: "--global-font-body",
+});
 
 export default async function RootLayout({
 	children,

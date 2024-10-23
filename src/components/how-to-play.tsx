@@ -2,7 +2,7 @@ import type { GameFeedback } from "@/lib/db/schema";
 import { css, cx } from "@/styled-system/css";
 import { Flex, Stack, styled } from "@/styled-system/jsx";
 import { word as wordRecipe } from "@/styled-system/recipes";
-import { Info } from "lucide-react";
+import { Info, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Heading, Dialog, Icon } from "./ui";
 import { Text } from "./ui/text";
@@ -46,16 +46,15 @@ export function HowToPlay() {
 							py="8"
 							gap="6"
 							alignItems="flex-start"
-							maxW={"lg"}
 							h="90vh"
 							overflowY={"auto"}
 							scrollbarWidth={"thin"}
 						>
 							<Stack gap="0">
-								<Heading as="h1" fontSize="3xl" fontWeight="bold">
+								<Heading as="h1" fontSize={["2xl","3xl","3xl"]} fontWeight="bold">
 									Como jogar
 								</Heading>
-								<Text fontSize="lg" fontWeight="light">
+								<Text fontSize={["sm","lg","lg"]} fontWeight="light">
 									Adivinhe a palavra do dia em 6 tentativas.
 								</Text>
 							</Stack>
@@ -101,6 +100,20 @@ export function HowToPlay() {
 								<Text>Uma palavra nova aparece a cada dia.</Text>
 							</Stack>
 						</Stack>
+						<Dialog.CloseTrigger asChild position="absolute" top="2" right="2">
+							<button
+								aria-label="Fechar modal"
+								type="button"
+								className={css({
+									outline: "none",
+									p: "2",
+									color: "fg.subtle",
+									cursor: "pointer",
+								})}
+							>
+								<XIcon />
+							</button>
+						</Dialog.CloseTrigger>
 					</Dialog.Content>
 				</Dialog.Positioner>
 			</Dialog.Root>

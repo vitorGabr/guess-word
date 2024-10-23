@@ -6,10 +6,10 @@ import { NextGameCountdown } from "./next-game-countdown";
 import { ShareGame } from "./share-game";
 import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
-import { getGameHistory } from "@/lib/db/persist-data";
+import { persistData } from "@/lib/db/persist-data";
 
 function Content() {
-	const game = getGameHistory();
+	const game = persistData.getGameHistory();
 	const lastWord = game.history[dayjs().format("YYYY-MM-DD")];
 
 	const { sequence, percentage } = useMemo(() => {
@@ -43,8 +43,15 @@ function Content() {
 		<Dialog.Root trapFocus={false} open={true} closeOnInteractOutside={false}>
 			<Dialog.Backdrop />
 			<Dialog.Positioner>
-				<Dialog.Content>
-					<Stack alignItems="center" p="6" gap="6">
+				<Dialog.Content overflow={"hidden"}>
+					<Stack
+						maxH={"90vh"}
+						overflowY={"auto"}
+						alignItems="center"
+						p="6"
+						gap="6"
+						scrollbarWidth={"thin"}
+					>
 						<Stack gap="6" alignItems="center">
 							<Stack alignItems="center">
 								<Center px="4" bgColor="fg.muted" rounded="l3" fontSize="xs">

@@ -3,8 +3,8 @@ import { createActorContext } from "@xstate/react";
 import { assign, setup } from "xstate";
 import { calculateFeedback } from "../game/calculate-feedback";
 import type { GameSchema } from "../db/schema";
-import { saveGameForToday } from "../db/persist-data";
 import { isWordInDictionary } from "../game/check-word-in-dict";
+import { persistData } from "../db/persist-data";
 
 type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
 type BackspaceEvent = { type: "BACKSPACE" };
@@ -60,7 +60,7 @@ export const gameMachine = setup({
 			};
 		}),
 		onGetSnapshot: ({ context }, params?: { value: "lost" | "won" }) => {
-			saveGameForToday({
+			persistData.saveGameForToday({
 				context,
 				...(params?.value && {
 					value: params.value,

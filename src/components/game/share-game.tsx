@@ -62,6 +62,10 @@ export function ShareGame({ feedback }: ShareGameProps) {
 				transform: "scale(1.01)",
 			}}
 			transition="all 0.2s"
+			color={{
+				base: "bg.default",
+				_dark: "fg.default",
+			}}
 		>
 			<Flex gap="2" alignItems="center" justifyContent="center">
 				<Share2 size={18} aria-hidden="true" />

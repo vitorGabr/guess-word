@@ -1,10 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import {
-	loadGameForToday,
-	saveGameForToday,
-	getGameHistory,
-} from "../src/lib/db/persist-data";
 import type { GameSchema } from "../src/lib/db/schema";
+import { persistData } from "@/lib/db/persist-data";
 
 vi.mock("dayjs", () => ({
 	default: () => ({
@@ -21,7 +17,7 @@ describe("Game functions", () => {
 		localStorage.clear();
 	});
 
-	it("should load game for today", () => {
+	it("should load game for today", async () => {
 		const gameData: GameSchema = {
 			status: "done",
 			context: {
@@ -49,14 +45,14 @@ describe("Game functions", () => {
 				"2023-10-26": gameData,
 			}),
 		);
-		expect(loadGameForToday()).toEqual(gameData);
+		expect(await persistData.loadGameForToday()).toEqual(gameData);
 	});
 
-	it("should return null if no game found for today", () => {
-		expect(loadGameForToday()).toBeNull();
+	it("should return null if no game found for today", async () => {
+		expect(await persistData.loadGameForToday()).toBeNull();
 	});
 
-	it("should save game for today", () => {
+	it("should save game for today", async () => {
 		const gameData: GameSchema = {
 			status: "active",
 			context: {
@@ -70,13 +66,13 @@ describe("Game functions", () => {
 			historyValue: {},
 			tags: [],
 		};
-		saveGameForToday(gameData);
+		await persistData.saveGameForToday(gameData);
 		expect(JSON.parse(localStorage.getItem("data") || "{}")).toEqual({
 			"2023-10-26": gameData,
 		});
 	});
 
-	it("should get game history", () => {
+	it("should get game history", async () => {
 		const gameData = {
 			"2023-10-25": {
 				status: "done",
@@ -120,11 +116,11 @@ describe("Game functions", () => {
 			total: 2,
 			won: 1,
 		};
-		expect(getGameHistory()).toEqual(expectedHistory);
+		expect(await persistData.getGameHistory()).toEqual(expectedHistory);
 	});
 
-	it("should return empty object if no game history found", () => {
-		expect(getGameHistory()).toEqual({
+	it("should return empty object if no game history found", async () => {
+		expect(await persistData.getGameHistory()).toEqual({
 			history: {},
 			total: 0,
 			won: 0,
