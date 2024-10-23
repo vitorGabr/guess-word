@@ -4,7 +4,7 @@ Prepare-se para uma experiência desafiadora e viciante que vai testar seus conh
 
 ## Pronto para Desvendar o Desafio? 🤔
 
-[![Assistir o vídeo](https://ik.imagekit.io/91phxemhf/Captura%20de%20tela%202024-10-23%20173135.png?updatedAt=1729715519864)](https://ik.imagekit.io/91phxemhf/Untitled%20Video%20October%2023,%202024%205_04%20PM.mp4?updatedAt=1729715404251)
+[!Assistir o vídeo](https://ik.imagekit.io/91phxemhf/Untitled%20Video%20October%2023,%202024%205_04%20PM.mp4?updatedAt=1729715404251)
 
 ## Uma Jornada Através do Mundo das Palavras 🌎
 
