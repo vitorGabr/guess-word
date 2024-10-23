@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Desvende o Enigma das Palavras com [Nome do Seu Jogo]! 
 
-## Getting Started
+Prepare-se para uma experiência desafiadora e viciante que vai testar seus conhecimentos linguísticos e colocar sua mente para trabalhar! **[Nome do Seu Jogo]** é um clone do Wordle reinventado, combinando a jogabilidade clássica que você ama com uma pitada de magia tecnológica. ✨
 
-First, run the development server:
+## Pronto para Desvendar o Desafio? 🤔
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Gif/Vídeo cativante do seu jogo em ação](link-para-o-gif/video)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Uma Jornada Através do Mundo das Palavras 🌎
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[Nome do Seu Jogo] não é apenas um jogo, é uma aventura linguística! A cada partida, você terá a oportunidade de:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Exercitar seu cérebro:** Desvende palavras secretas e expanda seu vocabulário de forma divertida e envolvente.
+* **Desafiar seus limites:**  Teste suas habilidades em diferentes níveis de dificuldade e veja até onde você consegue chegar.
+* **Compartilhar a diversão:** Desafie seus amigos e familiares e descubra quem é o mestre das palavras.
 
-## Learn More
+## Tecnologia de Ponta Impulsionando a Diversão 🚀
 
-To learn more about Next.js, take a look at the following resources:
+Por trás da interface elegante e intuitiva, [Nome do Seu Jogo] é impulsionado por um conjunto de tecnologias de ponta:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **Next.js 15:**  A estrutura poderosa e versátil que garante performance e escalabilidade, tornando cada interação suave como seda.
+* **TypeScript:** Tipagem estática para um código mais robusto e livre de bugs, porque aqui a diversão vem sem interrupções! 
+* **Panda CSS:** Estilos flexíveis e design de alto nível, porque a beleza também importa!
+* **Headless Components:**  Componentes reutilizáveis e independentes, prontos para qualquer desafio.
+* **Prisma ORM:** Conectando suas palavras ao banco de dados com a sutileza de um poeta e a precisão de um relojoeiro.
+* **IA Geradora de Palavras:** Prepare-se para ser desafiado por palavras geradas por inteligência artificial, tornando cada partida uma aventura única e imprevisível.
+* **Zod:** Validação de dados para garantir a integridade do jogo, porque regras existem para serem seguidas (e para tornar o jogo ainda mais divertido!).
+* **Autômato Finito:** Uma máquina de estados eficiente e elegante, orquestrando a lógica do jogo com a precisão de um maestro.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Junte-se à Comunidade de Desenvolvedores! 💻
 
-## Deploy on Vercel
+[Nome do Seu Jogo] é um projeto de código aberto e adoraríamos ter você conosco nesta jornada! 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Contribua com novas funcionalidades:**  Compartilhe suas ideias e ajude-nos a tornar o jogo ainda mais incrível!
+* **Aperfeiçoe suas habilidades:** Mergulhe no código-fonte e aprenda com desenvolvedores experientes.
+* **Faça parte da comunidade:** Junte-se a outros entusiastas por jogos de palavras e desenvolvimento web.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Experimente [Nome do Seu Jogo] Hoje Mesmo! 🎉
+
+[Jogar](https://guess-word-blush.vercel.app/)
