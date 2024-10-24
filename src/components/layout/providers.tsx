@@ -1,48 +1,37 @@
 "use client";
 
 import { persistData } from "@/lib/db/persist-data";
-import { GameProvider } from "@/lib/state/machine";
-import {
-	QueryClient,
-	QueryClientProvider,
-	useSuspenseQuery,
-} from "@tanstack/react-query";
+import { gameMachine, GameProvider } from "@/lib/state/machine";
 import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
-import { Toast } from "../ui";
+import { Toast, toaster } from "../ui";
 
 type ProvidersProps = PropsWithChildren<{ targetWord: string }>;
 
-const queryClient = new QueryClient();
 export function Providers({ children, targetWord }: ProvidersProps) {
+	
 	return (
-		<QueryClientProvider client={queryClient}>
 			<ThemeProvider
 				defaultTheme="system"
 				enableSystem
 				disableTransitionOnChange
 			>
-				<Content targetWord={targetWord}>{children}</Content>
+				<GameProvider
+					logic={gameMachine.provide({
+						actions: {
+							onToastMessage: (_, { message }) => {
+								toaster.create({ title: message });
+							},
+						},
+					})}
+					options={{
+						snapshot: persistData.loadGameForToday() as any,
+						input: targetWord,
+					}}
+				>
+					{children}
+				</GameProvider>
 				<Toast />
 			</ThemeProvider>
-		</QueryClientProvider>
-	);
-}
-
-function Content({ targetWord, children }: ProvidersProps) {
-	const { data } = useSuspenseQuery({
-		queryKey: ["snapshot"],
-		queryFn: () => persistData.loadGameForToday(),
-	});
-
-	return (
-		<GameProvider
-			options={{
-				snapshot: data as any,
-				input: targetWord,
-			}}
-		>
-			{children}
-		</GameProvider>
 	);
 }

@@ -7,7 +7,6 @@ import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { Heading } from "@/components/ui";
 import { Words } from "@/components/words";
 import { useKeyboardListener } from "@/hooks/use-keyboard-listener";
-import { useShowInvalidWord } from "@/hooks/use-show-invalid-word";
 import { useGameSelector } from "@/lib/state/machine";
 import { Container, Flex } from "@/styled-system/jsx";
 import { stack } from "@/styled-system/patterns";
@@ -18,7 +17,6 @@ export default function Home() {
 	const [isClient, setIsClient] = useState(false);
 
 	useKeyboardListener();
-	useShowInvalidWord();
 
 	useEffect(() => {
 		setIsClient(true);

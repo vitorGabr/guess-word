@@ -6,14 +6,10 @@ import { ShareGame } from "./share-game";
 import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
 import { persistData } from "@/lib/db/persist-data";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { calculateSequence } from "@/lib/game/calculate-sequence";
 
 function Content() {
-	const { data: game } = useSuspenseQuery({
-		queryKey: ["history"],
-		queryFn: () => persistData.getGameHistory(),
-	});
+	const game = persistData.getGameHistory();
 
 	const lastWord = game.history[dayjs().format("YYYY-MM-DD")];
 	const { sequence, percentage } = calculateSequence(game);

@@ -45,11 +45,11 @@ describe("Game functions", () => {
 				"2023-10-26": gameData,
 			}),
 		);
-		expect(await persistData.loadGameForToday()).toEqual(gameData);
+		expect(persistData.loadGameForToday()).toEqual(gameData);
 	});
 
 	it("should return null if no game found for today", async () => {
-		expect(await persistData.loadGameForToday()).toBeNull();
+		expect(persistData.loadGameForToday()).toBeNull();
 	});
 
 	it("should save game for today", async () => {
@@ -66,7 +66,7 @@ describe("Game functions", () => {
 			historyValue: {},
 			tags: [],
 		};
-		await persistData.saveGameForToday(gameData);
+		persistData.saveGameForToday(gameData);
 		expect(JSON.parse(localStorage.getItem("data") || "{}")).toEqual({
 			"2023-10-26": gameData,
 		});
@@ -116,11 +116,11 @@ describe("Game functions", () => {
 			total: 2,
 			won: 1,
 		};
-		expect(await persistData.getGameHistory()).toEqual(expectedHistory);
+		expect(persistData.getGameHistory()).toEqual(expectedHistory);
 	});
 
 	it("should return empty object if no game history found", async () => {
-		expect(await persistData.getGameHistory()).toEqual({
+		expect(persistData.getGameHistory()).toEqual({
 			history: {},
 			total: 0,
 			won: 0,

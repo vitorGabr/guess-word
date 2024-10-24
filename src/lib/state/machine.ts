@@ -21,6 +21,7 @@ type GameEvent =
 
 export const gameMachine = setup({
 	types: {
+		input: {} as string,
 		context: {} as GameSchema["context"],
 		events: {} as GameEvent,
 	},
@@ -67,6 +68,7 @@ export const gameMachine = setup({
 				}),
 			});
 		},
+		onToastMessage: (_, params: { message: string }) => {},
 	},
 }).createMachine({
 	context: ({ input }) => {
@@ -137,6 +139,10 @@ export const gameMachine = setup({
 		checking: {
 			always: [
 				{
+					target: "invalidWord",
+					guard: "isInvalidWord",
+				},
+				{
 					target: "won",
 					guard: "isWon",
 					actions: [
@@ -153,10 +159,6 @@ export const gameMachine = setup({
 					},
 				},
 				{
-					target: "invalidWord",
-					guard: "isInvalidWord",
-				},
-				{
 					target: "playing",
 					actions: [
 						{
@@ -170,6 +172,10 @@ export const gameMachine = setup({
 			],
 		},
 		invalidWord: {
+			entry: {
+				type: "onToastMessage",
+				params: { message: "Palavra inválida" },
+			},
 			after: {
 				1000: {
 					target: "playing",

@@ -1,3 +1,4 @@
+import { globalCss } from "@/theme/global-css";
 import { recipes, slotRecipes } from "@/theme/recipes";
 import { createSemanticTokens } from "@/theme/tokens";
 import { defineConfig } from "@pandacss/dev";
@@ -10,6 +11,7 @@ export default defineConfig({
 	],
 	exclude: [],
 	jsxFramework: "react",
+	globalCss,
 	conditions: {
 		extend: {
 			dark: '.dark &, [data-theme="dark"] &',

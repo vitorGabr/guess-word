@@ -29,7 +29,7 @@ export const toast = defineSlotRecipe({
 			transitionTimingFunction: "default",
 		},
 		title: {
-			color: "fg.default",
+			color: "white",
 			fontWeight: "semibold",
 			textStyle: "xs",
 			textAlign: "center",
