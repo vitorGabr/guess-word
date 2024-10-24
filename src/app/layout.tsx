@@ -24,7 +24,7 @@ export default async function RootLayout({
 			targetDate: new Date().toISOString().split("T")[0],
 		},
 	});
-
+	
 	return (
 		<html lang="pt-BR" suppressHydrationWarning>
 			<body className={`${body.className}`}>

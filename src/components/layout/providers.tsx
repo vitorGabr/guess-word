@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
-import { Toaster } from "../toaster";
+import { Toast } from "../ui";
 
 type ProvidersProps = PropsWithChildren<{ targetWord: string }>;
 
@@ -23,7 +23,7 @@ export function Providers({ children, targetWord }: ProvidersProps) {
 				disableTransitionOnChange
 			>
 				<Content targetWord={targetWord}>{children}</Content>
-				<Toaster />
+				<Toast />
 			</ThemeProvider>
 		</QueryClientProvider>
 	);

@@ -1,7 +1,7 @@
 import type { GameFeedback } from "@/lib/db/schema";
 import { Flex, styled } from "@/styled-system/jsx";
 import { Share2 } from "lucide-react";
-import { toast } from "sonner";
+import { toaster } from "../ui";
 
 interface ShareGameProps {
 	feedback: GameFeedback[][];
@@ -39,10 +39,12 @@ export function ShareGame({ feedback }: ShareGameProps) {
 		try {
 			const shareText = generateShareText();
 			await navigator.clipboard.writeText(shareText);
-			toast.success("Resultado compartilhado com sucesso!");
+			toaster.create({
+				title: "Resultado compartilhado com sucesso!",
+			});
 		} catch (error) {
 			const errorMessage = "Não foi possível compartilhar o resultado";
-			toast.error(errorMessage);
+			console.error(errorMessage, error);
 		}
 	};
 
