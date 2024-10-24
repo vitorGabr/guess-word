@@ -1,10 +1,9 @@
-import { validateAuth } from "@/lib/auth/validate-auth";
 import prisma from "@/lib/db/prisma";
 import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 import dayjs from "dayjs";
-import type { NextRequest } from "next/server";
 import { z } from "zod";
+import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 
 type WordWithTargetDate = {
 	word: string;
@@ -52,10 +51,7 @@ const transformWordsWithDates = (
 
 export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
-	const authError = validateAuth(request);
-	if (authError) return authError;
-
+export const POST = verifySignatureAppRouter(async () => {
 	try {
 		const generatedWords = await generateObject({
 			model: google("gemini-1.5-flash-latest"),
@@ -85,4 +81,4 @@ export async function GET(request: NextRequest) {
 			{ status: 500 },
 		);
 	}
-}
+});

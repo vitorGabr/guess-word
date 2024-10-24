@@ -16,6 +16,7 @@
 		"@ark-ui/anatomy": "^3.5.0",
 		"@ark-ui/react": "^4.1.2",
 		"@prisma/client": "^5.21.1",
+		"@upstash/qstash": "^2.7.13",
 		"@xstate/react": "^4.1.3",
 		"ai": "^3.4.18",
 		"dayjs": "^1.11.13",
