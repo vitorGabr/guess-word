@@ -1,7 +1,6 @@
 import { useGameSelector } from "@/lib/state/machine";
 import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
-import { Suspense } from "react";
 import { GameCountdown } from "./game-countdown";
 import { ShareGame } from "./share-game";
 import { Text, Dialog } from "../ui";
