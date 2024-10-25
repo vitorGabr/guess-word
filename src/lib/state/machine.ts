@@ -3,8 +3,8 @@ import { createActorContext } from "@xstate/react";
 import { assign, setup } from "xstate";
 import { persistData } from "../db/persist-data";
 import type { GameSchema } from "../db/schema";
-import { calculateFeedback } from "../game/calculate-feedback";
-import { isWordInDictionary } from "../game/check-word-in-dict";
+import { calculateFeedback } from "../utils/calculate-feedback";
+import { isWordInDictionary } from "../utils/check-word-in-dict";
 
 type InputLetterEvent = { type: "INPUT_LETTER"; letter: string };
 type BackspaceEvent = { type: "BACKSPACE" };

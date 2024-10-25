@@ -6,7 +6,7 @@ import { ShareGame } from "./share-game";
 import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
 import { persistData } from "@/lib/db/persist-data";
-import { calculateSequence } from "@/lib/game/calculate-sequence";
+import { calculateSequence } from "@/lib/utils/calculate-sequence";
 
 function Content() {
 	const game = persistData.getGameHistory();

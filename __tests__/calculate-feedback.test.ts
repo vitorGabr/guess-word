@@ -1,4 +1,4 @@
-import { calculateFeedback } from "@/lib/game/calculate-feedback";
+import { calculateFeedback } from "@/lib/utils/calculate-feedback";
 import { describe, expect,it } from "vitest";
 
 describe("Calculate Feedback", () => {

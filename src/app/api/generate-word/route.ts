@@ -28,20 +28,19 @@ export const POST = verifySignatureAppRouter(async () => {
 
 		const lastGame = await prisma.games.findFirst({
 			orderBy: { id: "desc" },
+			select: { targetDate: true },
 		});
 
 		const baseDate = dayjs(lastGame?.targetDate ?? dayjs().subtract(1, "day"));
 
-		const transformedWords = generatedWords.object.map((word, index) => ({
-			word,
-			targetDate: baseDate.add(index + 1, "day").format("YYYY-MM-DD"),
-		}));
-
 		await prisma.games.createMany({
-			data: transformedWords,
+			data: generatedWords.object.map((word, index) => ({
+				word,
+				targetDate: baseDate.add(index + 1, "day").format("YYYY-MM-DD"),
+			})),
 		});
 
-		return Response.json(transformedWords);
+		return Response.json({ ok: true });
 	} catch (error) {
 		return Response.json(
 			{ error: error instanceof Error ? error.message : "Unknown error" },
