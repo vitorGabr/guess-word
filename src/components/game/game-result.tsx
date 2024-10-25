@@ -1,4 +1,4 @@
-import { useGameSelector } from "@/lib/state/machine";
+import { useGameSelector } from "@/lib/state/game-machine";
 import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
 import dayjs from "dayjs";
 import { GameCountdown } from "./game-countdown";

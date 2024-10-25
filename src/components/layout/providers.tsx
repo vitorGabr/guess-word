@@ -1,7 +1,7 @@
 "use client";
 
 import { persistData } from "@/lib/db/persist-data";
-import { gameMachine, GameProvider } from "@/lib/state/machine";
+import { gameMachine, GameProvider } from "@/lib/state/game-machine";
 import { ThemeProvider } from "next-themes";
 import type { PropsWithChildren } from "react";
 import { Toast, toaster } from "../ui";

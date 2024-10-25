@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { createActor } from "xstate";
-import { gameMachine } from "../src/lib/state/machine";
+import { gameMachine } from "../src/lib/state/game-machine";
 
 describe("Wordle Game Machine", () => {
 	it('deve iniciar no estado "playing"', () => {
