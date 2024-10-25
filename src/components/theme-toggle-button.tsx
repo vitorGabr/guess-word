@@ -21,6 +21,7 @@ export function ThemeToggleButton() {
 			aria-label={`Toggle ${iconText} mode`}
 			cursor="pointer"
 			outline="none"
+			type="button"
 		>
 			{renderIcon()}
 		</styled.button>
