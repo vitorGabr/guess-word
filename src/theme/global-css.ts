@@ -9,7 +9,7 @@ export const globalCss = defineGlobalStyles({
     WebkitTextSizeAdjust: '100%',
   },
   body: {
-    background: 'bg.canvas',
+    background: 'bg.default',
     color: 'fg.default',
     _dark: {
       colorScheme: 'dark',
