@@ -7,8 +7,8 @@ import { dialog } from "./dialog";
 import { icon } from "./icon";
 import { key } from "./key";
 import { text } from "./text";
-import { word } from "./word";
 import { toast } from "./toast";
+import { word } from "./word";
 
 export const recipes: Record<string, RecipeConfig<RecipeVariantRecord>> = {
 	key,
@@ -19,5 +19,5 @@ export const recipes: Record<string, RecipeConfig<RecipeVariantRecord>> = {
 
 export const slotRecipes: Record<string, SlotRecipeConfig> = {
 	dialog,
-	toast
+	toast,
 };

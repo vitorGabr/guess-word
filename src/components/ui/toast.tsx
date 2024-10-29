@@ -6,8 +6,7 @@ import { createToaster } from "./styled/toast";
 export interface ToastProps {}
 
 export const Toast = forwardRef<HTMLDivElement, ToastProps>((props, ref) => {
-
-    return (
+	return (
 		<StyledToast.Toaster ref={ref} toaster={toaster}>
 			{(toast) => (
 				<StyledToast.Root key={toast.id}>

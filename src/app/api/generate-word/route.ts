@@ -1,9 +1,9 @@
 import prisma from "@/lib/db/prisma";
 import { google } from "@ai-sdk/google";
+import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 import { generateObject } from "ai";
 import dayjs from "dayjs";
 import { z } from "zod";
-import { verifySignatureAppRouter } from "@upstash/qstash/nextjs";
 
 const REQUIRED_WORD_LENGTH = 5;
 const REQUIRED_WORDS_COUNT = 7;

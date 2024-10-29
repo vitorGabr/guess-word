@@ -1,12 +1,12 @@
-import { useGameSelector } from "@/lib/state/game-machine";
-import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
-import dayjs from "dayjs";
-import { GameCountdown } from "./game-countdown";
-import { ShareGame } from "./share-game";
-import { Text, Dialog } from "../ui";
 import { DEFAULTS } from "@/constants/default";
 import { persistData } from "@/lib/db/persist-data";
+import { useGameSelector } from "@/lib/state/game-machine";
 import { calculateSequence } from "@/lib/utils/calculate-sequence";
+import { Box, Center, Flex, Grid, Stack } from "@/styled-system/jsx";
+import dayjs from "dayjs";
+import { Dialog, Text } from "../ui";
+import { GameCountdown } from "./game-countdown";
+import { ShareGame } from "./share-game";
 
 function Content() {
 	const game = persistData.getGameHistory();
@@ -128,5 +128,5 @@ function Content() {
 export function GameResult() {
 	const status = useGameSelector((state) => state.status);
 	if (status !== "done") return null;
-	return <Content />
+	return <Content />;
 }
