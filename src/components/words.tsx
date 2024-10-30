@@ -11,30 +11,20 @@ type WordsProps = {
 };
 
 export function Words({ feedback }: WordsProps) {
+	const actorRef = useGameActorRef();
+	const controls = useAnimation();
 	const currentGuess = useGameSelector((state) => state.context.currentGuess);
 	const currentCol = useGameSelector((state) => state.context.currentCol);
 	const isInvalidWord = useGameSelector((state) =>
 		state.matches("invalidWord"),
 	);
-
-	const actorRef = useGameActorRef();
+	
 	const currentRow = feedback.length;
-	const controls = useAnimation();
 	const shakeVariants = {
 		shake: {
 			x: [0, -10, 10, -10, 10, 0],
 			transition: { duration: 0.3 },
 		},
-	};
-	const flipVariants = {
-		hidden: { rotateX: 90 },
-		visible: (i: number) => ({
-			rotateX: 0,
-			transition: {
-				delay: i * 0.2, // Delay para cada célula
-				duration: 0.5,
-			},
-		}),
 	};
 
 	useEffect(() => {
