@@ -21,10 +21,25 @@ export default defineConfig({
 	theme: {
 		extend: {
 			semanticTokens: createSemanticTokens,
+			keyframes: {
+				shake: {
+					"0%, 100%": { transform: "translateX(0)" },
+					"20%": { transform: "translateX(-10px)" },
+					"40%": { transform: "translateX(10px)" },
+					"60%": { transform: "translateX(-10px)" },
+					"80%": { transform: "translateX(10px)" },
+				},
+			},
+			tokens: {
+				animations: {
+					shake: {
+						value: 'shake 0.3s ease-in-out',
+					}
+				}
+			}
 		},
 		recipes,
 		slotRecipes,
-		
 	},
 	outdir: "styled-system",
 	patterns: {
