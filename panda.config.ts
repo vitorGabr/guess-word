@@ -1,6 +1,7 @@
 import { globalCss } from "@/theme/global-css";
+import { keyframes } from "@/theme/key-frames";
 import { recipes, slotRecipes } from "@/theme/recipes";
-import { createSemanticTokens } from "@/theme/tokens";
+import { createSemanticTokens, createTokens } from "@/theme/tokens";
 import { defineConfig } from "@pandacss/dev";
 
 export default defineConfig({
@@ -21,22 +22,8 @@ export default defineConfig({
 	theme: {
 		extend: {
 			semanticTokens: createSemanticTokens,
-			keyframes: {
-				shake: {
-					"0%, 100%": { transform: "translateX(0)" },
-					"20%": { transform: "translateX(-10px)" },
-					"40%": { transform: "translateX(10px)" },
-					"60%": { transform: "translateX(-10px)" },
-					"80%": { transform: "translateX(10px)" },
-				},
-			},
-			tokens: {
-				animations: {
-					shake: {
-						value: 'shake 0.3s ease-in-out',
-					}
-				}
-			}
+			tokens: createTokens,
+			keyframes,
 		},
 		recipes,
 		slotRecipes,
