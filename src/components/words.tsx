@@ -18,14 +18,7 @@ export function Words({ feedback }: WordsProps) {
 	const isInvalidWord = useGameSelector((state) =>
 		state.matches("invalidWord"),
 	);
-	
 	const currentRow = feedback.length;
-	const shakeVariants = {
-		shake: {
-			x: [0, -10, 10, -10, 10, 0],
-			transition: { duration: 0.3 },
-		},
-	};
 
 	useEffect(() => {
 		if (isInvalidWord) {
@@ -72,7 +65,12 @@ export function Words({ feedback }: WordsProps) {
 							key={i}
 							initial="shake"
 							animate={controls}
-							variants={shakeVariants}
+							variants={{
+								shake: {
+									x: [0, -10, 10, -10, 10, 0],
+									transition: { duration: 0.3 },
+								},
+							}}
 						>
 							{renderRow(i)}
 						</motion.div>

@@ -16,14 +16,15 @@ export default defineConfig({
 		extend: {
 			dark: '.dark &, [data-theme="dark"] &',
 			light: ".light &",
-		}
+		},
 	},
 	theme: {
 		extend: {
 			semanticTokens: createSemanticTokens,
 		},
 		recipes,
-		slotRecipes
+		slotRecipes,
+		
 	},
 	outdir: "styled-system",
 	patterns: {
