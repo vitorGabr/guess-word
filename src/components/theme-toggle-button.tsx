@@ -18,6 +18,7 @@ export function ThemeToggleButton() {
 		<styled.button
 			color="fg.subtle"
 			onClick={toggleTheme}
+			onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
 			aria-label={`Toggle ${iconText} mode`}
 			cursor="pointer"
 			outline="none"
