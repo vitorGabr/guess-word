@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import prisma from "@/lib/db/prisma";
 import { Roboto_Mono } from "next/font/google";
+import dayjs from "dayjs";
 
 export const revalidate = false;
 export const metadata: Metadata = {
@@ -21,8 +22,11 @@ export default async function RootLayout({
 }>) {
 	const game = await prisma.games.findFirst({
 		where: {
-			targetDate: new Date().toISOString().split("T")[0],
+			targetDate: dayjs().format("YYYY-MM-DD"),
 		},
+		select: {
+			word: true
+		}
 	});
 
 	return (
