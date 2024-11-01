@@ -29,8 +29,12 @@ export function HowToPlay() {
 				cursor={"pointer"}
 				aria-label="Botão de instruções de como jogar"
 				type="button"
+				_hover={{
+					color: "fg.default",
+				}} 
+				color="fg.subtle"
 			>
-				<Icon color="fg.subtle">
+				<Icon>
 					<Info />
 				</Icon>
 			</styled.button>

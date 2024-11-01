@@ -3,14 +3,14 @@ import { styled } from "@/styled-system/jsx";
 import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggleButton() {
-	const { iconText, toggleTheme } = useThemeSwitch();
+	const { theme, toggleTheme } = useThemeSwitch();
 
 	const renderIcon = () => {
-		switch (iconText) {
-			case "Light":
-				return <Sun size="24" />;
-			default:
+		switch (theme) {
+			case "dark":
 				return <Moon size="24" />;
+			default:
+				return <Sun size="24" />;
 		}
 	};
 
@@ -19,10 +19,13 @@ export function ThemeToggleButton() {
 			color="fg.subtle"
 			onClick={toggleTheme}
 			onKeyDown={(e) => e.key === "Enter" && e.preventDefault()}
-			aria-label={`Toggle ${iconText} mode`}
+			aria-label={`Toggle ${theme} mode`}
 			cursor="pointer"
 			outline="none"
 			type="button"
+			_hover={{
+				color: "fg.default",
+			}}
 		>
 			{renderIcon()}
 		</styled.button>

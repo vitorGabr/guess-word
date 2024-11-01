@@ -56,5 +56,11 @@ export const defineColorTokens = defineSemanticTokens.colors({
 				_dark: "#6e56cf",
 			},
 		},
+		emphasized: {
+			value: {
+				base: "#e8e1fc",
+				_dark: "#33255b",
+			},
+		}
 	},
 });
