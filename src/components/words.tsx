@@ -17,22 +17,22 @@ export function Words({ feedback }: WordsProps) {
 	);
 	const currentRow = feedback.length;
 
-	const renderCell = (i: number, j: number) => {
+	const renderCell = (row: number, col: number) => {
 		let feedbackLetter: GameFeedback | null = null;
-		if (feedback[i]?.[j]) feedbackLetter = feedback[i][j];
-		if (currentRow === i && currentGuess[j]) {
-			feedbackLetter = { letter: currentGuess[j] };
+		if (feedback[row]?.[col]) feedbackLetter = feedback[row][col];
+		if (currentRow === row && currentGuess[col]) {
+			feedbackLetter = { letter: currentGuess[col] };
 		}
 
 		return (
 			<styled.button
-				key={`${i}-${j}`}
+				key={`${row}-${col}`}
 				className={word()}
-				data-status={currentRow === i && currentCol === j && "active"}
+				data-status={currentRow === row && currentCol === col && "active"}
 				data-feedback={feedbackLetter?.status}
-				aria-label={`Letter position ${j + 1}, row ${i + 1}`}
+				aria-label={`Letter position ${col + 1}, row ${row + 1}`}
 				type="button"
-				onClick={() => actorRef.send({ type: "EDIT_LETTER_POSITION", col: j })}
+				onClick={() => actorRef.send({ type: "EDIT_LETTER_POSITION", col: col })}
 			>
 				{(feedbackLetter?.letter || "").toUpperCase()}
 			</styled.button>
@@ -43,7 +43,6 @@ export function Words({ feedback }: WordsProps) {
 		<Stack gap="2" mx="auto" flex={1}>
 			{Array.from({ length: DEFAULTS.MAX_ATTEMPTS }).map((_, i) => {
 				const isShowInvalidWord = isInvalidWord && i === currentRow;
-
 				return (
 					<Flex key={i} gap="2" animation={isShowInvalidWord ? "shake" : undefined}>
 						{Array.from({ length: DEFAULTS.MAX_COL + 1 }).map((_, j) => {
